@@ -18,7 +18,6 @@ namespace Ex03.GarageLogic
             m_EnergyLeftByPercentages = i_EnergyLeftByPercentages;
         }
 
-        //public abstract void AddFuel(float i_FuelAmountToAdd, eFuelType i_FuelType);
         public abstract void show(); //to delete
     }
 }

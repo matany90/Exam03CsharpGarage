@@ -8,8 +8,9 @@ namespace Ex03.GarageLogic
     {
         public static void Main()
         {            
-            Vehicle v = new FuelCar("Mazda 3", "37483995", eFuelType.Octan96, 20f, 80f);
-            ((FuelCar)v).AddFuel(61f, eFuelType.Octan96);
+            Vehicle v = new FuelCar("Mazda 3", "37483995", eFuelType.Octan96, 20f, 80f, new CarProperties(eCarColor.Black, eDoorsNumber.Four));
+            ((FuelCar)v).AddFuel(60f, eFuelType.Octan96);
+            v.show();
         }
     }
 }

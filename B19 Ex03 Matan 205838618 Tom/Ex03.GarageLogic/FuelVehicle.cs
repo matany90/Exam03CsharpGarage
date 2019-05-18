@@ -18,7 +18,7 @@ namespace Ex03.GarageLogic
             m_MaxFuelQuantity = i_MaxFuelQuantity;
         }
 
-        public override void AddFuel(float i_FuelAmountToAdd, eFuelType i_FuelType)
+        public void AddFuel(float i_FuelAmountToAdd, eFuelType i_FuelType)
         {
             try
             {
