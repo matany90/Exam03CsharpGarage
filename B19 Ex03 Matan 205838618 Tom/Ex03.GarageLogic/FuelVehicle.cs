@@ -20,19 +20,19 @@ namespace Ex03.GarageLogic
 
         public void AddFuel(float i_FuelAmountToAdd, eFuelType i_FuelType)
         {
-            try
-            {
+            //try
+            //{
                 defineExceptions(i_FuelAmountToAdd, i_FuelType);
                 m_CurrentFuelQuantity += i_FuelAmountToAdd;
-            }
-            catch (ArgumentException ae)
-            {
-                Console.WriteLine(ae.Message); // console for testing
-            }
-            catch (ValueOutOfRangeException ve)
-            {
-                Console.WriteLine(ve.Message);// console for testing
-            } 
+            //}
+            //catch (ArgumentException ae)
+            //{
+            //    Console.WriteLine(ae.Message); // console for testing
+            //}
+            //catch (ValueOutOfRangeException ve)
+            //{
+            //    Console.WriteLine(ve.Message);// console for testing
+            //} 
         }
 
         private void defineExceptions(float i_FuelAmountToAdd, eFuelType i_FuelType)
