@@ -4,11 +4,13 @@ namespace Ex03.GarageLogic
 {
     class ElectricMotorcycle : ElectricVehicle
     {
-        public ElectricMotorcycle(string i_ModelName, string i_LicenseNumber, float i_EnergyLeftByPercentage, float i_BatteryTimeLeftByHours, float i_MaxBatteryTime) : base(i_ModelName, i_LicenseNumber, i_EnergyLeftByPercentage, i_BatteryTimeLeftByHours, i_MaxBatteryTime)
-        {
+        private MotorcycleProperties m_MotorcycleProperties;
 
+        public ElectricMotorcycle(string i_ModelName, string i_LicenseNumber, float i_EnergyLeftByPercentage, float i_BatteryTimeLeftByHours, float i_MaxBatteryTime, eLicenseTypes i_LicenseType, int i_EngineVolume) : base(i_ModelName, i_LicenseNumber, i_EnergyLeftByPercentage, i_BatteryTimeLeftByHours, i_MaxBatteryTime)
+        {
+            m_MotorcycleProperties = new MotorcycleProperties(i_LicenseType, i_EngineVolume);
         }
-        
+
         public override void show() // to delete
         {
             Console.WriteLine(
