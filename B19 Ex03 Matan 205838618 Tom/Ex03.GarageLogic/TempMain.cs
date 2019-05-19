@@ -15,6 +15,7 @@ namespace Ex03.GarageLogic
                 Vehicle a = new FuelMotorcycle("Tustus Motorcycle", "1222223", eFuelType.Octan98, 10f, 80f, new MotorcycleProperties(eLicenseTypes.A, 20));
                 ((FuelMotorcycle)a).AddFuel(70f, eFuelType.Octan98);
                 Vehicle b = new Truck("ISUZU TRUCK", "458748574", eFuelType.Soler, 15f, 90f, true, 600);
+                Vehicle e = new ElectricMotorcycle("ISUZU TRUCK", "458748574", eFuelType.Soler, 15f, 90f, true, 600);
                 a.show();
                 b.show();
                 v.show();

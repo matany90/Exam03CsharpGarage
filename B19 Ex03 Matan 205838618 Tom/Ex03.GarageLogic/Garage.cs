@@ -70,7 +70,7 @@ namespace Ex03.GarageLogic
             {
                 foreach (Wheel wheel in m_VehiclesInGarage[i_LicenseNumber].Vehicle.Wheels)
                 {
-                    wheel.AddAirPressure((wheel.MaxAirPressure - wheel.CurrentAirPressure) / 60);
+                    wheel.AddAirPressure(wheel.MaxAirPressure - wheel.CurrentAirPressure);
                 }
                 isVehicleExists = true;
             }
@@ -103,7 +103,7 @@ namespace Ex03.GarageLogic
             {
                 if (vehicleType.IsSubclassOf(typeof(ElectricVehicle)))
                 {
-                    ((ElectricVehicle)m_VehiclesInGarage[i_LicenseNumber].Vehicle).ChargeBattery(i_NumOfMinutesToAdd);
+                    ((ElectricVehicle)m_VehiclesInGarage[i_LicenseNumber].Vehicle).ChargeBattery(i_NumOfMinutesToAdd / 60);
                     isVehicleExists = true;
                 }
             }
