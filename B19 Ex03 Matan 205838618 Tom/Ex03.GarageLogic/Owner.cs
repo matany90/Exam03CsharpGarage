@@ -8,13 +8,23 @@ namespace Ex03.GarageLogic
     {
         private string m_OwnerName;
         private string m_OwnerPhone;
-        private eVehicleStatus m_VehicleStatus;
 
-        public Owner(string i_OwnerName, string i_OwnerPhone, eVehicleStatus i_VehicleStatus)
+        public Owner(string i_OwnerName, string i_OwnerPhone)
         {
             m_OwnerName = i_OwnerName;
             m_OwnerPhone = i_OwnerPhone;
-            m_VehicleStatus = i_VehicleStatus;
+        }
+
+        public string Name
+        {
+            get { return m_OwnerName; }
+            set { m_OwnerName = value; }
+        }
+
+        public string Phone
+        {
+            get { return m_OwnerPhone; }
+            set { m_OwnerPhone = value; }
         }
     }
 }
