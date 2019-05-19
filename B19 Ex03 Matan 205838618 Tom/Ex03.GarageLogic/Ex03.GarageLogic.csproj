@@ -46,6 +46,7 @@
     <Compile Include="FuelCar.cs" />
     <Compile Include="FuelMotorcycle.cs" />
     <Compile Include="FuelVehicle.cs" />
+    <Compile Include="Garage.cs" />
     <Compile Include="MotorcycleProperties.cs" />
     <Compile Include="Owner.cs" />
     <Compile Include="TempMain.cs" />
