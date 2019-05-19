@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
 {
     class Garage
     {
-        private Dictionary<Owner, VehicleInGarage> m_VehiclesInGarage;
+        private Dictionary<string, VehicleInGarage> m_VehiclesInGarage;
 
         public bool AddCarToGarage(Owner i_Owner, Vehicle i_Vehicle)
         {
