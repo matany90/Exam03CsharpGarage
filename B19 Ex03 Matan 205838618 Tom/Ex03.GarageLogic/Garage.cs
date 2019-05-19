@@ -47,12 +47,43 @@ namespace Ex03.GarageLogic
             return licenseNumbers;
         }
 
-        public void ChangeVehicleState(string i_LicensePlate, int i_State)
+        public void ChangeVehicleState(string i_LicenseNumber, eVehicleConditions i_State)
         {
+            bool isVehicleExists = false;
+
+            foreach (KeyValuePair<string, VehicleInGarage> garageDicElement in m_VehiclesInGarage)
+            {
+                if (garageDicElement.Key.Equals(i_LicenseNumber))
+                {
+                    garageDicElement.Value.VehicleState = i_State;
+                    isVehicleExists = true;
+                }
+            }
+            if (!isVehicleExists)
+            {
+                throw new Exception("Value not found");
+            }
         }
 
         public void FillWheelsToMax(string i_LicenseNumber)
         {
+            bool isVehicleExists = false;
+
+            foreach (KeyValuePair<string, VehicleInGarage> garageDicElement in m_VehiclesInGarage)
+            {
+                if (garageDicElement.Key.Equals(i_LicenseNumber))
+                {
+                    foreach (Wheel wheel in garageDicElement.Value.Vehicle.Wheels)
+                    {
+                        wheel.AddAirPressure(wheel.MaxAirPressure - wheel.CurrentAirPressure);
+                    }
+                    isVehicleExists = true;
+                }
+            }
+            if (!isVehicleExists)
+            {
+                throw new Exception("Value not found");
+            }
         }
 
         public void AddFuel(string i_LicenseNumber, eFuelType i_FuelType, float i_AmountToFill)
@@ -73,8 +104,8 @@ namespace Ex03.GarageLogic
         {
         }
 
-        public string ShowVehicleInfo(string i_LicenseNumber)
-        {
-        }
+        //public string ShowVehicleInfo(string i_LicenseNumber)
+        //{
+        //}
     }
 }

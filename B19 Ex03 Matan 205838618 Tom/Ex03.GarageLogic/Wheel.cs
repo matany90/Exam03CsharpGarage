@@ -19,7 +19,24 @@ namespace Ex03.GarageLogic
 
         public void AddAirPressure(float i_AirPressureToAdd)
         {
-            m_CurrentAirPressure += i_AirPressureToAdd; //TODO:: add exepction
+            if (m_CurrentAirPressure + i_AirPressureToAdd > m_MaxAirPressure)
+            {
+                throw new ValueOutOfRangeException("Error");//TODO:: add exepction
+            }
+            else
+            {
+                m_CurrentAirPressure += i_AirPressureToAdd; 
+            }          
+        }
+
+        public float MaxAirPressure
+        {
+            get { return m_MaxAirPressure; }
+        }
+
+        public float CurrentAirPressure
+        {
+            get { return m_CurrentAirPressure; }
         }
     }
 }
