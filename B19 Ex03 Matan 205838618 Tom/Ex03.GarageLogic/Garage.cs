@@ -102,6 +102,20 @@ namespace Ex03.GarageLogic
 
         public void ChargeBattery(string i_LicenseNumber, float i_NumOfMinutesToAdd)
         {
+            bool isVehicleExists = false;
+
+            foreach (KeyValuePair<string, VehicleInGarage> garageDicElement in m_VehiclesInGarage)
+            {
+                if (garageDicElement.Key.Equals(i_LicenseNumber))
+                {
+                    ((ElectricVehicle)garageDicElement.Value.Vehicle).ChargeBattery(i_NumOfMinutesToAdd);
+                    isVehicleExists = true;
+                }
+            }
+            if (!isVehicleExists)
+            {
+                throw new Exception("Value not found");
+            }
         }
 
         //public string ShowVehicleInfo(string i_LicenseNumber)
