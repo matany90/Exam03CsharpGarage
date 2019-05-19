@@ -42,6 +42,7 @@
     <Compile Include="ElectricMotorcycle.cs" />
     <Compile Include="ElectricVehicle.cs" />
     <Compile Include="eLicenseTypes.cs" />
+    <Compile Include="eVehicleConditions.cs" />
     <Compile Include="FuelCar.cs" />
     <Compile Include="FuelMotorcycle.cs" />
     <Compile Include="FuelVehicle.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Truck.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Vehicle.cs" />
+    <Compile Include="VehicleInGarage.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
