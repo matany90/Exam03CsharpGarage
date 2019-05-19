@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
 {
     class Garage
     {
-        private Dictionary<string, VehicleInGarage> m_VehiclesInGarage;
+        private Dictionary<string, VehicleInGarage> m_VehiclesInGarage = new Dictionary<string, VehicleInGarage>();
 
         public bool AddVehicleToGarage(Owner i_Owner, Vehicle i_Vehicle)
         {
@@ -113,8 +113,20 @@ namespace Ex03.GarageLogic
             }
         }
 
-        //public string ShowVehicleInfo(string i_LicenseNumber)
-        //{
-        //}
+        public string ShowVehicleInfo(string i_LicenseNumber)
+        {
+            string toShow = string.Empty;
+
+            if (m_VehiclesInGarage.ContainsKey(i_LicenseNumber))
+            {
+                toShow = m_VehiclesInGarage[i_LicenseNumber].ToString();
+            }
+            else
+            {
+                throw new Exception("Value not Found");
+            }
+
+            return toShow; 
+        }
     }
 }

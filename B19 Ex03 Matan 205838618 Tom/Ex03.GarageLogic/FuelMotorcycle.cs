@@ -14,19 +14,19 @@ namespace Ex03.GarageLogic
             m_MotorcycleProperties = i_MotorcycleProperties;
         }
 
-        public override void show() // to delete
+        public override string ToString()
         {
-            Console.WriteLine(
+            string toShow = string.Format(
 @"Model: {0}
 License Number: {1}
 Fuel type: {2}
 Current Fuel Quantity: {3}
 Max Fuel Quantity: {4}
 Energy left by %: {5}
-Motorcycle Properties:
-Motorcycle License type: {6}
-Motorcycle Engine Volume: {7}
-", m_ModelName, m_LicenseNumber, m_FuelType, m_CurrentFuelQuantity, m_MaxFuelQuantity, m_EnergyLeftByPercentages, m_MotorcycleProperties.LicenseType, m_MotorcycleProperties.EngineVolume);
+", m_ModelName, m_LicenseNumber, m_FuelType, m_CurrentFuelQuantity, m_MaxFuelQuantity, m_EnergyLeftByPercentages);
+            toShow += m_MotorcycleProperties.ToString() + Environment.NewLine;
+
+            return toShow;
         }
 
     }

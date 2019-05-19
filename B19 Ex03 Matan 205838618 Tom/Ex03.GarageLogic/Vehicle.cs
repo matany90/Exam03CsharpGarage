@@ -24,7 +24,5 @@ namespace Ex03.GarageLogic
         {
             get { return m_Wheels; }
         } 
-
-        public abstract void show(); //to delete
     }
 }

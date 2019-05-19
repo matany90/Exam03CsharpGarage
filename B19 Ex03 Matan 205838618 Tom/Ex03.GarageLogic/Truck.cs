@@ -16,19 +16,19 @@ namespace Ex03.GarageLogic
             m_TruckLoadSize = i_TruckLoadSize;
         }
 
-        public override void show() // to delete
+        public override string ToString() // to delete
         {
-            Console.WriteLine(
+            return (string.Format(
 @"Model: {0}
 License Number: {1}
 Fuel type: {2}
 Current Fuel Quantity: {3}
 Max Fuel Quantity: {4}
 Energy left by %: {5}
-Truck:
+Truck Properties:
 Transfer Hazardous Materials: {6}
 Load Size: {7}
-", m_ModelName, m_LicenseNumber, m_FuelType, m_CurrentFuelQuantity, m_MaxFuelQuantity, m_EnergyLeftByPercentages, m_IsTransferHazardousMaterials, m_TruckLoadSize);
+", m_ModelName, m_LicenseNumber, m_FuelType, m_CurrentFuelQuantity, m_MaxFuelQuantity, m_EnergyLeftByPercentages, m_IsTransferHazardousMaterials, m_TruckLoadSize));
         }
     }
 }

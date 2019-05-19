@@ -40,5 +40,20 @@
                 m_VehicleState = value;
             }
         }
+
+        public override string ToString()
+        {
+            string toShow = string.Format(
+@"Owner Details:
+{0}
+Vehicle Status: 
+{1}
+
+Vehicle Info:
+{2}
+", m_Owner.ToString(), m_VehicleState, m_Vehicle.ToString());
+
+            return toShow;
+        }
     }
 }

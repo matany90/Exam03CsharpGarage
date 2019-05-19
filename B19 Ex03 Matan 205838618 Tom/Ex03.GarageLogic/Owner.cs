@@ -26,5 +26,15 @@ namespace Ex03.GarageLogic
             get { return m_OwnerPhone; }
             set { m_OwnerPhone = value; }
         }
+
+        public override string ToString()
+        {
+            string toShow = string.Format(
+@"Owner Name: {0}
+Owner Phone: {1}
+", m_OwnerName, m_OwnerPhone);
+
+            return toShow;
+        }
     }
 }

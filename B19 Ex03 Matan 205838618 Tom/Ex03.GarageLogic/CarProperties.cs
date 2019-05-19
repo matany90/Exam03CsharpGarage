@@ -26,5 +26,15 @@ namespace Ex03.GarageLogic
             get { return m_DoorsNumber; }
             set { m_DoorsNumber = value; }
         }
+
+        public override string ToString()
+        {
+            string toShow = string.Format(
+@"Car Properties:
+Car Color: {0}
+Car Doors Number: {1}", m_CarColor, m_DoorsNumber);
+
+            return toShow;
+        }
     }
 }

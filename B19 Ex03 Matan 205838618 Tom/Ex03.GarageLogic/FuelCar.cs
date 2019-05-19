@@ -14,19 +14,19 @@ namespace Ex03.GarageLogic
             m_CarProperties = i_CarProperties;
         }
 
-        public override void show() // to delete
+        public override string ToString() // to delete
         {
-            Console.WriteLine(
+             string toShow = string.Format(
 @"Model: {0}
 License Number: {1}
 Fuel type: {2}
 Current Fuel Quantity: {3}
 Max Fuel Quantity: {4}
 Energy left by %: {5}
-Car Properties:
-Car Color: {6}
-Car Doors Number: {7}
-", m_ModelName, m_LicenseNumber, m_FuelType, m_CurrentFuelQuantity, m_MaxFuelQuantity,  m_EnergyLeftByPercentages, m_CarProperties.CarColor, m_CarProperties.DoorsNumber);
+", m_ModelName, m_LicenseNumber, m_FuelType, m_CurrentFuelQuantity, m_MaxFuelQuantity,  m_EnergyLeftByPercentages);
+            toShow += m_CarProperties.ToString() + Environment.NewLine;
+
+            return toShow;
         }
     }
 }

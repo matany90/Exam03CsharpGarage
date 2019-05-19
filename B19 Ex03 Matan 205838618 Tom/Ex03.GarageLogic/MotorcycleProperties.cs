@@ -24,5 +24,15 @@ namespace Ex03.GarageLogic
             get { return m_EngineVolume; }
             set { m_EngineVolume = value; }
         }
+
+        public override string ToString()
+        {
+            string toShow = string.Format(
+@"Motorcycle Properties:
+Motorcycle License type: {0}
+Motorcycle Engine Volume: {1}", m_LicenseType, m_EngineVolume);
+
+            return toShow;
+        }
     }
 }
