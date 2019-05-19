@@ -7,6 +7,7 @@ namespace Ex03.GarageLogic
     class Garage
     {
         private Dictionary<Owner, VehicleInGarage> m_VehiclesInGarage;
+
         public bool AddCarToGarage(Owner i_Owner, Vehicle i_Vehicle)
         {
         }
@@ -20,6 +21,18 @@ namespace Ex03.GarageLogic
         }
 
         public void FillWheelsToMax(string i_LicenseNumber)
+        {
+        }
+
+        public void AddFuel(string i_LicenseNumber, eFuelType i_FuelType, float i_AmountToFill)
+        {
+        }
+
+        public void ChargeBattery(string i_LicenseNumber, float i_NumOfMinutesToAdd)
+        {
+        }
+
+        public string ShowVehicleInfo(string i_LicenseNumber)
         {
         }
     }
