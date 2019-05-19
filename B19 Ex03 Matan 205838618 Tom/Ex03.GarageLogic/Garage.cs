@@ -51,13 +51,10 @@ namespace Ex03.GarageLogic
         {
             bool isVehicleExists = false;
 
-            foreach (KeyValuePair<string, VehicleInGarage> garageDicElement in m_VehiclesInGarage)
+            if (m_VehiclesInGarage.ContainsKey(i_LicenseNumber))
             {
-                if (garageDicElement.Key.Equals(i_LicenseNumber))
-                {
-                    garageDicElement.Value.VehicleState = i_State;
-                    isVehicleExists = true;
-                }
+                m_VehiclesInGarage[i_LicenseNumber].VehicleState = i_State;
+                isVehicleExists = true;
             }
             if (!isVehicleExists)
             {
@@ -69,16 +66,13 @@ namespace Ex03.GarageLogic
         {
             bool isVehicleExists = false;
 
-            foreach (KeyValuePair<string, VehicleInGarage> garageDicElement in m_VehiclesInGarage)
+            if (m_VehiclesInGarage.ContainsKey(i_LicenseNumber))
             {
-                if (garageDicElement.Key.Equals(i_LicenseNumber))
+                foreach (Wheel wheel in m_VehiclesInGarage[i_LicenseNumber].Vehicle.Wheels)
                 {
-                    foreach (Wheel wheel in garageDicElement.Value.Vehicle.Wheels)
-                    {
-                        wheel.AddAirPressure(wheel.MaxAirPressure - wheel.CurrentAirPressure);
-                    }
-                    isVehicleExists = true;
+                    wheel.AddAirPressure(wheel.MaxAirPressure - wheel.CurrentAirPressure);
                 }
+                isVehicleExists = true;
             }
             if (!isVehicleExists)
             {
@@ -105,11 +99,11 @@ namespace Ex03.GarageLogic
             bool isVehicleExists = false;
             Type vehicleType = m_VehiclesInGarage[i_LicenseNumber].Vehicle.GetType();
 
-            foreach (KeyValuePair<string, VehicleInGarage> garageDicElement in m_VehiclesInGarage)
+            if (m_VehiclesInGarage.ContainsKey(i_LicenseNumber))
             {
-                if (garageDicElement.Key.Equals(i_LicenseNumber) && vehicleType.IsSubclassOf(typeof(ElectricVehicle)))
+                if (vehicleType.IsSubclassOf(typeof(ElectricVehicle)))
                 {
-                    ((ElectricVehicle)garageDicElement.Value.Vehicle).ChargeBattery(i_NumOfMinutesToAdd);
+                    ((ElectricVehicle)m_VehiclesInGarage[i_LicenseNumber].Vehicle).ChargeBattery(i_NumOfMinutesToAdd);
                     isVehicleExists = true;
                 }
             }
