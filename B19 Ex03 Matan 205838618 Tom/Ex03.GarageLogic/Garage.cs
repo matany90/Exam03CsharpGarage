@@ -103,10 +103,11 @@ namespace Ex03.GarageLogic
         public void ChargeBattery(string i_LicenseNumber, float i_NumOfMinutesToAdd)
         {
             bool isVehicleExists = false;
+            Type vehicleType = m_VehiclesInGarage[i_LicenseNumber].Vehicle.GetType();
 
             foreach (KeyValuePair<string, VehicleInGarage> garageDicElement in m_VehiclesInGarage)
             {
-                if (garageDicElement.Key.Equals(i_LicenseNumber))
+                if (garageDicElement.Key.Equals(i_LicenseNumber) && vehicleType.IsSubclassOf(typeof(ElectricVehicle)))
                 {
                     ((ElectricVehicle)garageDicElement.Value.Vehicle).ChargeBattery(i_NumOfMinutesToAdd);
                     isVehicleExists = true;
