@@ -18,6 +18,8 @@ namespace Ex03.GarageLogic
             m_EnergyLeftByPercentages = i_EnergyLeftByPercentages;
         }
 
+        public string LicenseNumber { get { return m_LicenseNumber; } }
+
         public abstract void show(); //to delete
     }
 }
