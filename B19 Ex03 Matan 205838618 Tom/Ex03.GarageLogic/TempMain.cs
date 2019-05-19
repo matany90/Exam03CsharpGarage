@@ -20,7 +20,7 @@ namespace Ex03.GarageLogic
                 garage.AddVehicleToGarage(new Owner("matan", "0522542570"), v);
                 //garage.AddVehicleToGarage(new Owner("tom", "06283849"), a);
                 Console.WriteLine(garage.ShowVehicleInfo("37483995"));
-                garage.AddFuel("37483995", eFuelType.Octan96, 20f);
+                garage.AddFuel("11111", eFuelType.Octan96, 20f);
                 Console.WriteLine(garage.ShowVehicleInfo("37483995"));
 
 

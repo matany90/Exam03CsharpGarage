@@ -58,7 +58,7 @@ namespace Ex03.GarageLogic
             }
             if (!isVehicleExists)
             {
-                throw new Exception("Value not found");
+                throw new Exception("Error, This license number does not exist in the garage!");
             }
         }
 
@@ -76,21 +76,27 @@ namespace Ex03.GarageLogic
             }
             if (!isVehicleExists)
             {
-                throw new Exception("Value not found");
+                throw new Exception("Error, This license number does not exist in the garage!");
             }
         }
 
         public void AddFuel(string i_LicenseNumber, eFuelType i_FuelType, float i_AmountToFill)
-        {
-            Type vehicleType = m_VehiclesInGarage[i_LicenseNumber].Vehicle.GetType();
-
-            if (vehicleType.IsSubclassOf(typeof(FuelVehicle)))
+        {            
+            if (m_VehiclesInGarage.ContainsKey(i_LicenseNumber))
             {
-                ((FuelVehicle)m_VehiclesInGarage[i_LicenseNumber].Vehicle).AddFuel(i_AmountToFill, i_FuelType);
+                Type vehicleType = m_VehiclesInGarage[i_LicenseNumber].Vehicle.GetType();
+                if (vehicleType.IsSubclassOf(typeof(FuelVehicle)))
+                {
+                    ((FuelVehicle)m_VehiclesInGarage[i_LicenseNumber].Vehicle).AddFuel(i_AmountToFill, i_FuelType);
+                }
+                else
+                {
+                    throw new Exception("Error, Vehicle is not a fuel vehicle. Cannot add fuel!");
+                }
             }
             else
             {
-                throw new Exception("Error, Vehicle is not a fuel vehicle. Cannot add fuel!");
+                throw new Exception("Error, This license number does not exist in the garage!");
             }
         }
 
@@ -109,7 +115,7 @@ namespace Ex03.GarageLogic
             }
             if (!isVehicleExists)
             {
-                throw new Exception("Value not found");
+                throw new Exception("Error, This license number does not exist in the garage!");
             }
         }
 
@@ -123,7 +129,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new Exception("Value not Found");
+                throw new Exception("Error, This license number does not exist in the garage!");
             }
 
             return toShow; 
