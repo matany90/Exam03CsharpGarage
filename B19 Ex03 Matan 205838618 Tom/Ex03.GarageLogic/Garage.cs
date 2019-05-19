@@ -70,7 +70,7 @@ namespace Ex03.GarageLogic
             {
                 foreach (Wheel wheel in m_VehiclesInGarage[i_LicenseNumber].Vehicle.Wheels)
                 {
-                    wheel.AddAirPressure(wheel.MaxAirPressure - wheel.CurrentAirPressure);
+                    wheel.AddAirPressure((wheel.MaxAirPressure - wheel.CurrentAirPressure) / 60);
                 }
                 isVehicleExists = true;
             }
