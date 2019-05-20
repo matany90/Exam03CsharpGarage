@@ -8,21 +8,10 @@ namespace Ex03.GarageLogic
     {
         private CarProperties m_CarProperties;
 
-        public FuelCar(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, eCarColor i_CarColor, eDoorsNumber i_DoorsNumber)
-            : base(i_ModelName, i_LicenseNumber, i_FuelType, i_CurrentFuelQuantity, i_MaxFuelQuantity)
+        public FuelCar(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, eCarColor i_CarColor, eDoorsNumber i_DoorsNumber, int i_NumberOfWheels, Wheel i_Wheel)
+            : base(i_ModelName, i_LicenseNumber, i_FuelType, i_CurrentFuelQuantity, i_MaxFuelQuantity, i_NumberOfWheels, i_Wheel)
         {
             m_CarProperties = new CarProperties(i_CarColor, i_DoorsNumber);
-        }
-
-        public FuelCar DeepClone()
-        {
-            string model = String.Copy(ModelName);
-            string licenseNumber = String.Copy(LicenseNumber);
-            eFuelType eFuelType = FuelType;
-            float currentFuelQuantity = CurrentFuelQuantity;
-            float maxFuelQuantity = MaxFuelQuantity;
-
-            return new FuelCar(model, licenseNumber, eFuelType, currentFuelQuantity, maxFuelQuantity, m_CarProperties.CarColor, m_CarProperties.DoorsNumber);
         }
 
         public override string ToString() // to delete

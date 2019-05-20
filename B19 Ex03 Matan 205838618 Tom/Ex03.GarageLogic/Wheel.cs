@@ -38,5 +38,10 @@ namespace Ex03.GarageLogic
         {
             get { return m_CurrentAirPressure; }
         }
+
+        public string ManufactorName
+        {
+            get { return m_ManufacturerName; }
+        }
     }
 }

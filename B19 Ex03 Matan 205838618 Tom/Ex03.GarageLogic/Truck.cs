@@ -9,8 +9,8 @@ namespace Ex03.GarageLogic
         private bool? m_IsTransferHazardousMaterials;
         private int m_TruckLoadSize;
 
-        public Truck(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, bool? i_IsTransferHazardousMaterials, int i_TruckLoadSize)
-    : base(i_ModelName, i_LicenseNumber, i_FuelType, i_CurrentFuelQuantity, i_MaxFuelQuantity)
+        public Truck(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, bool? i_IsTransferHazardousMaterials, int i_TruckLoadSize, int i_NumberOfWheels, Wheel i_Wheel)
+    : base(i_ModelName, i_LicenseNumber, i_FuelType, i_CurrentFuelQuantity, i_MaxFuelQuantity, i_NumberOfWheels, i_Wheel)
         {
             m_IsTransferHazardousMaterials = i_IsTransferHazardousMaterials;
             m_TruckLoadSize = i_TruckLoadSize;
