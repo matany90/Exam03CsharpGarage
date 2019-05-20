@@ -8,18 +8,20 @@ namespace Ex03.GarageLogic
     {
         private Dictionary<string, VehicleInGarage> m_VehiclesInGarage = new Dictionary<string, VehicleInGarage>();
 
-        public bool AddVehicleToGarage(Owner i_Owner, Vehicle i_Vehicle)
+        public bool AddVehicleToGarage(string i_OwnerName, string i_OwnerPhone, eVehicleTypes i_Identifier, string i_Model, string i_License, float i_CurrentEnergySourceAmount, string i_WheelManufactor, float i_CurrentAirPressure, object i_VehicleSpecificParameter1, object i_VehicleSpecificParameter2)
         {
             bool vehicleAlreadyInGarage = false;
+            Owner vehicleOwner = new Owner(i_OwnerName, i_OwnerPhone);
+            Vehicle vehicleToAdd = VehicleFactory.Create(i_Identifier, i_Model, i_License, i_CurrentEnergySourceAmount, i_WheelManufactor, i_CurrentAirPressure, i_VehicleSpecificParameter1, i_VehicleSpecificParameter2);
 
-            if (m_VehiclesInGarage.ContainsKey(i_Vehicle.LicenseNumber))
+            if (m_VehiclesInGarage.ContainsKey(vehicleToAdd.LicenseNumber))
             {
-                m_VehiclesInGarage[i_Vehicle.LicenseNumber].VehicleState = eVehicleConditions.InRepair;
+                m_VehiclesInGarage[vehicleToAdd.LicenseNumber].VehicleState = eVehicleConditions.InRepair;
                 vehicleAlreadyInGarage = true;
             }
             else
             {
-                m_VehiclesInGarage.Add(i_Vehicle.LicenseNumber, new VehicleInGarage(i_Vehicle, i_Owner));
+                m_VehiclesInGarage.Add(vehicleToAdd.LicenseNumber, new VehicleInGarage(vehicleToAdd, vehicleOwner));
             }
 
             return vehicleAlreadyInGarage;
