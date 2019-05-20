@@ -11,7 +11,7 @@ namespace Ex03.GarageLogic
         protected float m_EnergyLeftByPercentages;
         protected Wheel[] m_Wheels;
 
-        public Vehicle(string i_ModelName, string i_LicenseNumber, float i_EnergyLeftByPercentages, int i_NumberOfWheels, Wheel i_Wheel)
+        public Vehicle(string i_ModelName, string i_LicenseNumber, float i_EnergyLeftByPercentages, int i_NumberOfWheels, Wheel[] i_Wheel)
         {
             m_ModelName = i_ModelName;
             m_LicenseNumber = i_LicenseNumber;
@@ -19,7 +19,7 @@ namespace Ex03.GarageLogic
             m_Wheels = new Wheel[i_NumberOfWheels];
             for (int i = 0; i < i_NumberOfWheels; i++)
             {
-                m_Wheels[i] = new Wheel(i_Wheel.ManufactorName, i_Wheel.CurrentAirPressure, i_Wheel.MaxAirPressure);
+                m_Wheels[i] = new Wheel(i_Wheel[i].ManufactorName, i_Wheel[i].CurrentAirPressure, i_Wheel[i].MaxAirPressure);
             }
         }
 
