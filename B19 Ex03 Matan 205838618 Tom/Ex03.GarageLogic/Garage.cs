@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
     {
         private Dictionary<string, VehicleInGarage> m_VehiclesInGarage = new Dictionary<string, VehicleInGarage>();
 
-        public bool AddVehicleToGarage(string i_OwnerName, string i_OwnerPhone, eVehicleTypes i_Identifier, string i_Model, string i_License, float i_CurrentEnergySourceAmount, string i_WheelManufactor, float i_CurrentAirPressure, object i_VehicleSpecificParameter1, object i_VehicleSpecificParameter2)
+        public bool AddVehicleToGarage(string i_OwnerName, string i_OwnerPhone, eVehicleTypes i_Identifier, string i_Model, string i_License, float i_CurrentEnergySourceAmount, string i_WheelManufactor, float[] i_CurrentAirPressure, object i_VehicleSpecificParameter1, object i_VehicleSpecificParameter2)
         {
             bool vehicleAlreadyInGarage = false;
             Owner vehicleOwner = new Owner(i_OwnerName, i_OwnerPhone);

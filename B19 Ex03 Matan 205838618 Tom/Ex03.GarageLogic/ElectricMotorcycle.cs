@@ -6,7 +6,8 @@ namespace Ex03.GarageLogic
     {
         private MotorcycleProperties m_MotorcycleProperties;
 
-        public ElectricMotorcycle(string i_ModelName, string i_LicenseNumber, float i_BatteryTimeLeftByHours, float i_MaxBatteryTime, eLicenseTypes i_LicenseType, int i_EngineVolume, int i_NumberOfWheels, Wheel i_Wheel) : base(i_ModelName, i_LicenseNumber, i_BatteryTimeLeftByHours, i_MaxBatteryTime, i_NumberOfWheels, i_Wheel)
+        public ElectricMotorcycle(string i_ModelName, string i_LicenseNumber, float i_BatteryTimeLeftByHours, float i_MaxBatteryTime, eLicenseTypes i_LicenseType, int i_EngineVolume, int i_NumberOfWheels, Wheel[] i_Wheel) 
+            : base(i_ModelName, i_LicenseNumber, i_BatteryTimeLeftByHours, i_MaxBatteryTime, i_NumberOfWheels, i_Wheel)
         {
             m_MotorcycleProperties = new MotorcycleProperties(i_LicenseType, i_EngineVolume);
         }
