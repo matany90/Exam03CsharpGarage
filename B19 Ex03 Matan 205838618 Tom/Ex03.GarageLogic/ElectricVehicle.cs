@@ -22,6 +22,7 @@ namespace Ex03.GarageLogic
             else
             {
                 m_BatteryTimeLeftByHours += i_AmountToAdd;
+                m_EnergyLeftByPercentages = (m_BatteryTimeLeftByHours / m_MaxBatteryTime) * 100; 
             }
         }
     }

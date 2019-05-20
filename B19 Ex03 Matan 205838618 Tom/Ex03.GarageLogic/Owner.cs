@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    class Owner
+    public class Owner
     {
         private string m_OwnerName;
         private string m_OwnerPhone;

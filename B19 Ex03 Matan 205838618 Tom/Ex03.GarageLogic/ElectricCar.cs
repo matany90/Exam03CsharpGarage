@@ -20,7 +20,7 @@ Current Time Left: {2}
 Max Battery Time: {3}
 Energy left by %: {4}
 ", m_ModelName, m_LicenseNumber, m_BatteryTimeLeftByHours, m_MaxBatteryTime, m_EnergyLeftByPercentages);
-            toShow += m_CarProperties.ToString();
+            toShow += m_CarProperties.ToString() + Environment.NewLine;
 
             return toShow;
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    abstract class Vehicle
+    public abstract class Vehicle
     {
         protected string m_ModelName;
         protected string m_LicenseNumber;
@@ -18,11 +18,24 @@ namespace Ex03.GarageLogic
             m_EnergyLeftByPercentages = i_EnergyLeftByPercentages;
         }
 
-        public string LicenseNumber { get { return m_LicenseNumber; } }
+        public string LicenseNumber
+        {
+            get { return m_LicenseNumber; }
+        }
 
         public List<Wheel> Wheels
         {
             get { return m_Wheels; }
-        } 
+        }
+
+        public float EnergyLeftByPercentages
+        {
+            get { return m_EnergyLeftByPercentages; }
+        }
+
+        public string ModelName
+        {
+            get { return m_ModelName; }
+        }
     }
 }

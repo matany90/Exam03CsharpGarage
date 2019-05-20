@@ -11,7 +11,7 @@ namespace Ex03.GarageLogic
         protected float m_MaxFuelQuantity;
 
         public FuelVehicle(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity)
-            : base(i_ModelName, i_LicenseNumber, 100 - ((i_CurrentFuelQuantity * i_MaxFuelQuantity) / 100))
+            : base(i_ModelName, i_LicenseNumber, (i_CurrentFuelQuantity / i_MaxFuelQuantity) * 100)
         {
             m_FuelType = i_FuelType;
             m_CurrentFuelQuantity = i_CurrentFuelQuantity;
@@ -22,6 +22,7 @@ namespace Ex03.GarageLogic
         {
                 defineExceptions(i_FuelAmountToAdd, i_FuelType);
                 m_CurrentFuelQuantity += i_FuelAmountToAdd;
+                m_EnergyLeftByPercentages = (m_CurrentFuelQuantity / m_MaxFuelQuantity) * 100;
         }
 
         private void defineExceptions(float i_FuelAmountToAdd, eFuelType i_FuelType)
@@ -41,5 +42,21 @@ namespace Ex03.GarageLogic
 You try to add more fuel than the vehicle's fuel capacity"));
             }
         }
+
+        public eFuelType FuelType
+        {
+            get { return m_FuelType; }
+        }
+
+        public float CurrentFuelQuantity
+        {
+            get { return m_CurrentFuelQuantity; }
+        }
+
+        public float MaxFuelQuantity
+        {
+            get { return m_MaxFuelQuantity; }
+        }
+
     }
 }

@@ -8,10 +8,21 @@ namespace Ex03.GarageLogic
     {
         private MotorcycleProperties m_MotorcycleProperties;
 
-        public FuelMotorcycle(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, MotorcycleProperties i_MotorcycleProperties)
+        public FuelMotorcycle(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, eLicenseTypes i_LicenseType, int i_EngineVolume)
             : base(i_ModelName, i_LicenseNumber, i_FuelType, i_CurrentFuelQuantity, i_MaxFuelQuantity)
         {
-            m_MotorcycleProperties = i_MotorcycleProperties;
+            m_MotorcycleProperties = new MotorcycleProperties(i_LicenseType, i_EngineVolume);
+        }
+
+        public FuelMotorcycle DeepClone()
+        {
+            string model = String.Copy(ModelName);
+            string licenseNumber = String.Copy(LicenseNumber);
+            eFuelType eFuelType = FuelType;
+            float currentFuelQuantity = CurrentFuelQuantity;
+            float maxFuelQuantity = MaxFuelQuantity;
+
+            return new FuelMotorcycle(model, licenseNumber, eFuelType, currentFuelQuantity, maxFuelQuantity, m_MotorcycleProperties.LicenseType, m_MotorcycleProperties.EngineVolume);
         }
 
         public override string ToString()
@@ -27,6 +38,11 @@ Energy left by %: {5}
             toShow += m_MotorcycleProperties.ToString() + Environment.NewLine;
 
             return toShow;
+        }
+
+        public MotorcycleProperties MotorcycleProperties
+        {
+            get { return m_MotorcycleProperties; }
         }
 
     }

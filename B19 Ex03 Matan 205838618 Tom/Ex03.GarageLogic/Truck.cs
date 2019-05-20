@@ -6,10 +6,10 @@ namespace Ex03.GarageLogic
 {
     class Truck : FuelVehicle
     {
-        protected bool m_IsTransferHazardousMaterials;
-        protected int m_TruckLoadSize;
+        private bool? m_IsTransferHazardousMaterials;
+        private int m_TruckLoadSize;
 
-        public Truck(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, bool i_IsTransferHazardousMaterials, int i_TruckLoadSize)
+        public Truck(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, bool? i_IsTransferHazardousMaterials, int i_TruckLoadSize)
     : base(i_ModelName, i_LicenseNumber, i_FuelType, i_CurrentFuelQuantity, i_MaxFuelQuantity)
         {
             m_IsTransferHazardousMaterials = i_IsTransferHazardousMaterials;
