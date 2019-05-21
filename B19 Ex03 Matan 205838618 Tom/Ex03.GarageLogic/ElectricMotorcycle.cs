@@ -6,8 +6,8 @@ namespace Ex03.GarageLogic
     {
         private MotorcycleProperties m_MotorcycleProperties;
 
-        public ElectricMotorcycle(string i_ModelName, string i_LicenseNumber, float i_BatteryTimeLeftByHours, eLicenseTypes i_LicenseType, int i_EngineVolume/*, Wheel[] i_Wheel*/) 
-            : base(i_ModelName, i_LicenseNumber, i_BatteryTimeLeftByHours, 1.4f, 2/*, i_Wheel*/)
+        public ElectricMotorcycle(string i_ModelName, string i_LicenseNumber, float i_BatteryTimeLeftByHours, eLicenseTypes i_LicenseType, int i_EngineVolume/*,*/ /*Wheel[] i_Wheels*/) 
+            : base(i_ModelName, i_LicenseNumber, i_BatteryTimeLeftByHours, 1.4f, 2/*, i_Wheels*/)
         {
             m_MotorcycleProperties = new MotorcycleProperties(i_LicenseType, i_EngineVolume);
         }
@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
 
         public static Type[] GetParamsTypesArray()
         {
-            Type[] types = { typeof(string), typeof(string), typeof(float), typeof(eLicenseTypes), typeof(int) };
+            Type[] types = { typeof(string), typeof(string), typeof(float), typeof(eLicenseTypes), typeof(int), typeof(ElectricMotorcycle) };
 
             return types;
         }

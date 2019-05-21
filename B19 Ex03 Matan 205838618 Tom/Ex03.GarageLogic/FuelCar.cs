@@ -7,7 +7,10 @@ namespace Ex03.GarageLogic
     class FuelCar : FuelVehicle
     {
         private CarProperties m_CarProperties;
-        
+        //private const float k_MaxFuelQuantity = 55f;
+        //private const int k_WheelsNumber = 4;
+        //private const eFuelType k_FuelType = eFuelType.Octan96;
+
         public FuelCar(string i_ModelName, string i_LicenseNumber, float i_CurrentFuelQuantity, eCarColor i_CarColor, eDoorsNumber i_DoorsNumber/*, Wheel[] i_Wheel*/)
             : base(i_ModelName, i_LicenseNumber, eFuelType.Octan96, i_CurrentFuelQuantity, 55f, 4/*, i_Wheel*/)
         {
@@ -16,7 +19,7 @@ namespace Ex03.GarageLogic
 
         public static Type[] GetParamsTypesArray()
         {
-            Type[] types = { typeof(string), typeof(string), typeof(float), typeof(eCarColor), typeof(eDoorsNumber) };
+            Type[] types = { typeof(string), typeof(string), typeof(float), typeof(eCarColor), typeof(eDoorsNumber), typeof(FuelCar) };
 
             return types;
         }

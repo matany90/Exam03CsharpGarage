@@ -10,11 +10,11 @@ namespace Ex03.GarageLogic
         public static Dictionary<eVehicleTypes, VehicleParametersTypes> Vehicles
             = new Dictionary<eVehicleTypes, VehicleParametersTypes>
         {
-    {eVehicleTypes.FuelCar, new VehicleParametersTypes(FuelCar.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Current Fuel Quantity", "Car Color", "Doors Number"})},
-    {eVehicleTypes.FuelMotorcycle, new VehicleParametersTypes(FuelMotorcycle.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Current Fuel Quantity", "License Types", "Engine Volume"})},
-    {eVehicleTypes.ElectricMotorcycle, new VehicleParametersTypes(ElectricMotorcycle.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Energy time remaining in the battery by hours", "License Types", "Engine Volume"})},
-    {eVehicleTypes.ElectricCar, new VehicleParametersTypes(ElectricCar.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Energy time remaining in the battery by hours", "Car Color", "Doors Number"})},
-     {eVehicleTypes.Truck, new VehicleParametersTypes(Truck.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Current Fuel Quantity", "truck transfer hazardous materials", "Truck load size"})},
+    {eVehicleTypes.FuelCar, new VehicleParametersTypes(FuelCar.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Current Fuel Quantity", "Car Color", "Doors Number", "Wheels in vehicle"})},
+    {eVehicleTypes.FuelMotorcycle, new VehicleParametersTypes(FuelMotorcycle.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Current Fuel Quantity", "License Types", "Engine Volume", "Wheels in vehicle"})},
+    {eVehicleTypes.ElectricMotorcycle, new VehicleParametersTypes(ElectricMotorcycle.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Energy time remaining in the battery by hours", "License Types", "Engine Volume", "Wheels in vehicle"})},
+    {eVehicleTypes.ElectricCar, new VehicleParametersTypes(ElectricCar.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Energy time remaining in the battery by hours", "Car Color", "Doors Number", "Wheels in vehicle"})},
+     {eVehicleTypes.Truck, new VehicleParametersTypes(Truck.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Current Fuel Quantity", "truck transfer hazardous materials", "Truck load size", "Wheels in vehicle"})},
         };
 
         public static Vehicle Create(eVehicleTypes i_Identifier, List<object> i_ParamsArray)
@@ -23,19 +23,19 @@ namespace Ex03.GarageLogic
                 switch (i_Identifier)
                 {
                     case eVehicleTypes.FuelCar:
-                    vehicleToReturn = new FuelCar((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (eCarColor)i_ParamsArray[3], (eDoorsNumber)i_ParamsArray[4]/*, CreateWheels(4, i_WheelManufactor, i_CurrentAirPressure, 31f)*/);
+                    vehicleToReturn = new FuelCar((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (eCarColor)i_ParamsArray[3], (eDoorsNumber)i_ParamsArray[4]/*, new Wheel((string)i_ParamsArray[5], (float)i_ParamsArray[6], 31f*//*, CreateWheels(4, i_WheelManufactor, i_CurrentAirPressure, 31f)*/);
                         break;
                     case eVehicleTypes.FuelMotorcycle:
-                    vehicleToReturn = new FuelMotorcycle((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (eLicenseTypes)i_ParamsArray[3], (int)i_ParamsArray[4]/*, CreateWheels(2, i_WheelManufactor, i_CurrentAirPressure, 33f)*/);
+                    vehicleToReturn = new FuelMotorcycle((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (eLicenseTypes)i_ParamsArray[3], (int)i_ParamsArray[4]/*, (Wheel[])i_ParamsArray[5]*//*, CreateWheels(2, i_WheelManufactor, i_CurrentAirPressure, 33f)*/);
                         break;
                     case eVehicleTypes.ElectricMotorcycle:
-                    vehicleToReturn = new ElectricMotorcycle((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (eLicenseTypes)i_ParamsArray[3], (int)i_ParamsArray[4]/*, CreateWheels(2, i_WheelManufactor, i_CurrentAirPressure, 33f)*/);
+                    vehicleToReturn = new ElectricMotorcycle((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (eLicenseTypes)i_ParamsArray[3], (int)i_ParamsArray[4]/*, (Wheel[])i_ParamsArray[5]*//*, CreateWheels(2, i_WheelManufactor, i_CurrentAirPressure, 33f)*/);
                         break;
                     case eVehicleTypes.ElectricCar:
-                    vehicleToReturn = new ElectricCar((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (eCarColor)i_ParamsArray[3], (eDoorsNumber)i_ParamsArray[4]/*, CreateWheels(4, i_WheelManufactor, i_CurrentAirPressure, 31f)*/);
+                    vehicleToReturn = new ElectricCar((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (eCarColor)i_ParamsArray[3], (eDoorsNumber)i_ParamsArray[4]/*, (Wheel[])i_ParamsArray[5]*//*, CreateWheels(4, i_WheelManufactor, i_CurrentAirPressure, 31f)*/);
                         break;
                     case eVehicleTypes.Truck:
-                    vehicleToReturn = new Truck((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (bool)i_ParamsArray[3], (int)i_ParamsArray[4]/*, CreateWheels(12, i_WheelManufactor, i_CurrentAirPressure, 26f)*/);
+                    vehicleToReturn = new Truck((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (bool)i_ParamsArray[3], (int)i_ParamsArray[4]/*, (Wheel[])i_ParamsArray[5]*//*, CreateWheels(12, i_WheelManufactor, i_CurrentAirPressure, 26f)*/);
                         break;
                     default:
                         break;

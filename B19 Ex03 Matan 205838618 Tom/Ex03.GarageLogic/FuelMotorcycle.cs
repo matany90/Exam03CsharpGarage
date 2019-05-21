@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
 
         public static Type[] GetParamsTypesArray()
         {
-            Type[] types = { typeof(string), typeof(string), typeof(float), typeof(eLicenseTypes), typeof(int) };
+            Type[] types = { typeof(string), typeof(string), typeof(float), typeof(eLicenseTypes), typeof(int), typeof(FuelMotorcycle) };
 
             return types;
         }

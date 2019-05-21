@@ -7,18 +7,22 @@ namespace Ex03.GarageLogic
         protected float m_BatteryTimeLeftByHours;
         protected float m_MaxBatteryTime;
 
-        public ElectricVehicle(string i_ModelName, string i_LicenseNumber, float i_BatteryTimeLeftByHours, float i_MaxBatteryTime, int i_NumberOfWheels/*, Wheel[] i_Wheel*/) 
-            : base(i_ModelName, i_LicenseNumber, 100 * (i_BatteryTimeLeftByHours / i_MaxBatteryTime), i_NumberOfWheels/*, i_Wheel*/)
+        public ElectricVehicle(string i_ModelName, string i_LicenseNumber, float i_BatteryTimeLeftByHours, float i_MaxBatteryTime, int i_NumberOfWheels/*, Wheel[] i_Wheels*/) 
+            : base(i_ModelName, i_LicenseNumber, 100 * (i_BatteryTimeLeftByHours / i_MaxBatteryTime), i_NumberOfWheels/*, i_Wheels*/)
         {
             m_BatteryTimeLeftByHours = i_BatteryTimeLeftByHours;
             m_MaxBatteryTime = i_MaxBatteryTime;
+            if (m_MaxBatteryTime < m_BatteryTimeLeftByHours)
+            {
+                throw new ValueOutOfRangeException(null, m_MaxBatteryTime, 0);
+            }
         }
 
         public void ChargeBattery(float i_AmountToAdd)
         {
             if (m_BatteryTimeLeftByHours + i_AmountToAdd > m_MaxBatteryTime)
             {
-                throw new ValueOutOfRangeException("");//Add Exception
+                throw new ValueOutOfRangeException(null, m_MaxBatteryTime, 0);
             }
             else
             {

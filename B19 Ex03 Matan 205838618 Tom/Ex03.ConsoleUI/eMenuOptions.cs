@@ -12,6 +12,7 @@ namespace Ex03.ConsoleUI
         AddAirPressure = 4,
         AddFuelVehicle = 5,
         ChargeBatteryVehicle = 6,
-        ShowVehicleByLicense = 7
+        ShowVehicleByLicense = 7,
+        Exit = 8
     }
 }

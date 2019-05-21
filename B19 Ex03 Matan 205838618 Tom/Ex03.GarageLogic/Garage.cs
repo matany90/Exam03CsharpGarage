@@ -21,8 +21,9 @@ namespace Ex03.GarageLogic
             }
             else
             {
+                Console.WriteLine("after add " + vehicleToAdd.LicenseNumber);
                 m_VehiclesInGarage.Add(vehicleToAdd.LicenseNumber, new VehicleInGarage(vehicleToAdd, vehicleOwner));
-                Console.WriteLine(m_VehiclesInGarage[vehicleToAdd.LicenseNumber].Vehicle); //testConsole
+                //Console.WriteLine(m_VehiclesInGarage[vehicleToAdd.LicenseNumber].Vehicle); //testConsole
             }
 
             return vehicleAlreadyInGarage;
@@ -114,6 +115,10 @@ namespace Ex03.GarageLogic
                 {
                     ((ElectricVehicle)m_VehiclesInGarage[i_LicenseNumber].Vehicle).ChargeBattery(i_NumOfMinutesToAdd / 60);
                     isVehicleExists = true;
+                }
+                else
+                {
+                    throw new Exception("Error, You can not charge a non-electric vehicle!");
                 }
             }
             if (!isVehicleExists)
