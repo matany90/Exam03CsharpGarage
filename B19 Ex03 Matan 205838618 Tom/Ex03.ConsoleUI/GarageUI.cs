@@ -49,7 +49,7 @@ namespace Ex03.ConsoleUI
 @"What would you like to do?
 Please select one of the options by selecting the option's number (1-8), then press enter:
 1. Add Vehicle to garage
-2. Show all vehicles in the garage, with the option to filter vehicles by status
+2. Show all license numbers in the garage, with the option to filter vehicles by status
 3. Change Vehicle status
 4. Inflate vehicle's wheels
 5. Add fuel to vehicle
@@ -74,7 +74,8 @@ Please select one of the options by selecting the option's number (1-8), then pr
                 case eMenuOptions.AddVehicle:
                     handleAddVehicle(i_garage);
                     break;
-                case eMenuOptions.ShowAllVehicle:
+                case eMenuOptions.ShowLicenses:
+                    handleShowLicenses(i_garage);
                     break;
                 case eMenuOptions.ChangeVehicleStatus:
                     handleChangeStatus(i_garage);
@@ -92,6 +93,47 @@ Please select one of the options by selecting the option's number (1-8), then pr
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void handleShowLicenses(Garage i_Garage)
+        {
+            eVehicleConditions? vehicleStatusToFilter = null;
+            bool toFilter;
+
+            Console.WriteLine(
+@"Would you like to filter license numbers by vehicle status?
+Choose Y/N, and then press enter:");
+            string choise = Console.ReadLine().ToLower();
+            while (!checkInputValidation(choise, "^[y|n]{1}$"))
+            {
+                Console.WriteLine("Invalid choise. please try again, and then press enter:");
+                choise = Console.ReadLine();
+            }
+            toFilter = choise.Equals("y");
+            if (toFilter)
+            {
+                Console.WriteLine(
+@"Which status would you like to filter?
+Select one of the options by selecting the option's number (1-3), then press enter:
+1. InRepair
+2. Repaired
+3. Paid");
+                choise = Console.ReadLine().ToLower();
+                while (!checkInputValidation(choise, "^[1-3]{1}$"))
+                {
+                    Console.WriteLine("Invalid choise. please try again, and then press enter:");
+                    choise = Console.ReadLine();
+                }
+                vehicleStatusToFilter = (eVehicleConditions)Enum.Parse(typeof(eVehicleConditions), choise);
+            }
+
+            List<string> licenseToShow = i_Garage.ShowLicenseNumbersbool(toFilter, vehicleStatusToFilter);
+            int indexLicense = 1;
+            foreach (string license in licenseToShow)
+            {
+                Console.WriteLine(indexLicense + ". " + license);
+                indexLicense++;
             }
         }
 

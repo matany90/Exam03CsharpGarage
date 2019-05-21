@@ -7,7 +7,7 @@ namespace Ex03.ConsoleUI
     public enum eMenuOptions
     {
         AddVehicle = 1,
-        ShowAllVehicle = 2,
+        ShowLicenses = 2,
         ChangeVehicleStatus = 3,
         AddAirPressure = 4,
         AddFuelVehicle = 5,

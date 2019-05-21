@@ -29,22 +29,22 @@ namespace Ex03.GarageLogic
             return vehicleAlreadyInGarage;
         }
 
-        public List<int> ShowLicenseNumbersbool(bool i_UseFilter, int i_Filter)
+        public List<string> ShowLicenseNumbersbool(bool i_UseFilter, eVehicleConditions? i_Filter)
         {
-            List<int> licenseNumbers = new List<int>();
+            List<string> licenseNumbers = new List<string>();
 
             foreach (VehicleInGarage vehicle in m_VehiclesInGarage.Values)
             {
                 if (i_UseFilter)
                 {
-                    if (vehicle.VehicleState.ToString() == Enum.GetName(typeof(eVehicleConditions), i_Filter))
+                    if (vehicle.VehicleState == i_Filter)
                     {
-                        licenseNumbers.Add(int.Parse(vehicle.Vehicle.LicenseNumber));
+                        licenseNumbers.Add(vehicle.Vehicle.LicenseNumber);
                     }
                 }
                 else
                 {
-                    licenseNumbers.Add(int.Parse(vehicle.Vehicle.LicenseNumber));
+                    licenseNumbers.Add(vehicle.Vehicle.LicenseNumber);
                 }
             }
 
