@@ -22,7 +22,7 @@ namespace Ex03.GarageLogic
             else
             {
                 m_VehiclesInGarage.Add(vehicleToAdd.LicenseNumber, new VehicleInGarage(vehicleToAdd, vehicleOwner));
-                Console.WriteLine(m_VehiclesInGarage[vehicleToAdd.LicenseNumber].Vehicle);
+                Console.WriteLine(m_VehiclesInGarage[vehicleToAdd.LicenseNumber].Vehicle); //testConsole
             }
 
             return vehicleAlreadyInGarage;
