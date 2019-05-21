@@ -7,11 +7,18 @@ namespace Ex03.GarageLogic
     class FuelCar : FuelVehicle
     {
         private CarProperties m_CarProperties;
-
-        public FuelCar(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, eCarColor i_CarColor, eDoorsNumber i_DoorsNumber, int i_NumberOfWheels, Wheel[] i_Wheel)
-            : base(i_ModelName, i_LicenseNumber, i_FuelType, i_CurrentFuelQuantity, i_MaxFuelQuantity, i_NumberOfWheels, i_Wheel)
+        
+        public FuelCar(string i_ModelName, string i_LicenseNumber, float i_CurrentFuelQuantity, eCarColor i_CarColor, eDoorsNumber i_DoorsNumber/*, Wheel[] i_Wheel*/)
+            : base(i_ModelName, i_LicenseNumber, eFuelType.Octan96, i_CurrentFuelQuantity, 55f, 4/*, i_Wheel*/)
         {
             m_CarProperties = new CarProperties(i_CarColor, i_DoorsNumber);
+        }
+
+        public static Type[] GetParamsTypesArray()
+        {
+            Type[] types = { typeof(string), typeof(string), typeof(float), typeof(eCarColor), typeof(eDoorsNumber) };
+
+            return types;
         }
 
         public override string ToString() // to delete

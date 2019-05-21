@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using Ex03.GarageLogic;
+using System.Collections.Generic;
 
 namespace Ex03.ConsoleUI
 {
@@ -11,8 +12,7 @@ namespace Ex03.ConsoleUI
 
             Console.WriteLine("Welcome to Tom and Matan's garage!" + Environment.NewLine);
             eMenuOptions userChoise = mainMenu();
-            garageOperations(userChoise);
-
+            garageOperations(userChoise);              
         }
 
         private eMenuOptions mainMenu()
@@ -37,11 +37,6 @@ Please select one of the options by selecting the option's number (1-7), then pr
             }
 
             return (eMenuOptions)Enum.Parse(typeof(eMenuOptions), choise);
-        }
-
-        private bool checkInputValidation(string i_Choise, string i_Pattern)
-        {
-            return Regex.IsMatch(i_Choise, i_Pattern);
         }
 
         private void garageOperations(eMenuOptions i_userChoise)
@@ -70,18 +65,14 @@ Please select one of the options by selecting the option's number (1-7), then pr
             }
         }
 
-        private void handleAddVehicle(Garage i_Garage)
+        private void handleAddVehicle(Garage garage)
         {
+            Dictionary<eVehicleTypes, VehicleParametersTypes> vehicles = VehicleFactory.Vehicles; ////get types VehicleFactory
+
             string ownerName = string.Empty;
             string ownerPhone = string.Empty;
+            List<object> paramsToSend = new List<object>();
             eVehicleTypes vehicleChoise;
-            string model = string.Empty;
-            string license = string.Empty;
-            float currentEnergySource;
-            string wheelManufacturer = string.Empty;
-            float[] currentAirPressure;
-            object VehicleSpecificParameter1;
-            object VehicleSpecificParameter2;
 
             Console.WriteLine(
 @"Details of vehicle owner:
@@ -106,148 +97,100 @@ Please select one of the options (1-5), then press enter:
                 vehicleChoiseString = Console.ReadLine();
             }
             vehicleChoise = (eVehicleTypes)Enum.Parse(typeof(eVehicleTypes), vehicleChoiseString);
-            Console.WriteLine("Please enter the vehicle model, and then press enter:");
-            model = Console.ReadLine();
-            Console.WriteLine("Please enter the license number of the vehicle, and then press enter:");
-            license = Console.ReadLine();
+            paramsToSend = getParamsFromUser(vehicles[vehicleChoise].ParameterTypes, vehicles[vehicleChoise].ParameterDescription);
 
-            if (isElectricVehicle(vehicleChoise))
-            {
-                Console.WriteLine("Please enter the number of hours the vehicle is charged, and then press enter:");
-            }
-            else
-            {
-                Console.WriteLine("Please enter the number of fuel liters in the vehicle, and then press enter:");
-            }
-            currentEnergySource = float.Parse(Console.ReadLine());
-            handleWheelsInput(out currentAirPressure, out wheelManufacturer, vehicleChoise);
-
-            if (isCar(vehicleChoise))
-            {
-                handleInputCarProperties(out VehicleSpecificParameter1, out VehicleSpecificParameter2);
-
-            }
-            else if (isMotorcycle(vehicleChoise))
-            {
-                handleInputMotorcycleProperties(out VehicleSpecificParameter1, out VehicleSpecificParameter2);
-            }
-            else
-            {
-                handleInputTruckProperties(out VehicleSpecificParameter1, out VehicleSpecificParameter2);
-            }
-
-            i_Garage.AddVehicleToGarage(ownerName, ownerPhone, vehicleChoise, model, license, currentEnergySource, wheelManufacturer, currentAirPressure, VehicleSpecificParameter1, VehicleSpecificParameter2);
+            garage.AddVehicleToGarage(ownerName, ownerPhone, vehicleChoise, paramsToSend);
         }
 
-        private void handleInputTruckProperties(out object o_VehicleSpecificParameter1, out object o_VehicleSpecificParameter2)
+        private List<object> getParamsFromUser(Type[] i_ParameterTypes, string[] i_ParamDescription)
         {
-            Console.WriteLine(
-@"Does the truck transfers hazardous materials? Please select Y/N");
-            string choiseString = Console.ReadLine().ToLower();
-            while (!checkInputValidation(choiseString, "^[y|n]{1}$"))
+            List<object> paramsToSend = new List<object>();
+            for (int i = 0; i < i_ParamDescription.Length; i++)
             {
-                Console.WriteLine("Invalid choise. please try again, and then press enter:");
-                choiseString = Console.ReadLine().ToLower();
-            }
-            o_VehicleSpecificParameter1 = choiseString.Equals("y");
-
-            Console.WriteLine("Please enter the truck load size, and then press enter:");
-            o_VehicleSpecificParameter2 = int.Parse(Console.ReadLine());
-        }
-
-        private void handleInputMotorcycleProperties(out object o_VehicleSpecificParameter1, out object o_VehicleSpecificParameter2)
-        {
-            Console.WriteLine(@"Please enter the license type for the motorcycle
-by selecting the relevant number, then press enter:
-1. A 
-2. A1
-3. A2
-4. B ");
-            string choiseString = Console.ReadLine();
-            while (!checkInputValidation(choiseString, "^[1-4]{1}$"))
-            {
-                Console.WriteLine("Invalid choise. please try again, and then press enter:");
-                choiseString = Console.ReadLine();
-            }
-            o_VehicleSpecificParameter1 = (eLicenseTypes)Enum.Parse(typeof(eLicenseTypes), choiseString);
-
-            Console.WriteLine("Please enter engine volume of the motorcycle, and then press enter:");
-            o_VehicleSpecificParameter2 = int.Parse(Console.ReadLine());
-        }
-
-        private void handleInputCarProperties(out object o_VehicleSpecificParameter1, out object io_VehicleSpecificParameter2)
-        {
-            Console.WriteLine(
-@"Please select the vehicle color by selecting the relevant number, then press enter:
-1. Red
-2. Blue
-3. Black
-4. Gray");
-            string choiseString = Console.ReadLine();
-            while (!checkInputValidation(choiseString, "^[1-4]{1}$"))
-            {
-                Console.WriteLine("Invalid choise. please try again, and then press enter:");
-                choiseString = Console.ReadLine();
-            }
-            o_VehicleSpecificParameter1 = (eCarColor)Enum.Parse(typeof(eCarColor), choiseString);
-
-            Console.WriteLine(
-@"Please select the vehicle doors number by selecting the relevant number, then press enter:
-1. Two
-2. Three
-3. Four
-4. Five");
-            choiseString = Console.ReadLine();
-            while (!checkInputValidation(choiseString, "^[1-4]{1}$"))
-            {
-                Console.WriteLine("Invalid choise. please try again, and then press enter:");
-                choiseString = Console.ReadLine();
-            }
-            io_VehicleSpecificParameter2 = (eDoorsNumber)Enum.Parse(typeof(eDoorsNumber), choiseString);
-        }
-
-        private bool isCar(eVehicleTypes i_Vehicle)
-        {
-            return i_Vehicle.Equals(eVehicleTypes.ElectricCar) || i_Vehicle.Equals(eVehicleTypes.FuelCar);
-        }
-
-        private bool isMotorcycle(eVehicleTypes i_Vehicle)
-        {
-            return i_Vehicle.Equals(eVehicleTypes.ElectricMotorcycle) || i_Vehicle.Equals(eVehicleTypes.FuelMotorcycle);
-        }
-
-        private void handleWheelsInput(out float[] i_CurrentAirPressure, out string io_WheelManufacturer, eVehicleTypes i_Vehicle)
-        {
-            Console.WriteLine("Please enter the wheel manufacturer of the vehicle, and then press enter:");
-            io_WheelManufacturer = Console.ReadLine();
-            int numOfWheels = getNumOfWheels(i_Vehicle);
-            i_CurrentAirPressure = new float[numOfWheels];
-            for (int i = 0; i < numOfWheels; i++)
-            {
-                Console.WriteLine(@"Please enter the air pressure for wheel number {0}", (i + 1));
-                i_CurrentAirPressure[i] = float.Parse(Console.ReadLine());
-            }
-        }
-
-        private bool isElectricVehicle(eVehicleTypes i_Vehicle)
-        {
-            return i_Vehicle.Equals(eVehicleTypes.ElectricCar) || i_Vehicle.Equals(eVehicleTypes.ElectricMotorcycle);
-        }
-
-        private int getNumOfWheels(eVehicleTypes i_VehicleType)
-        {
-            int numOfWheels = 4;
-
-            if (i_VehicleType.Equals(eVehicleTypes.Truck))
-            {
-                numOfWheels = 12;
-            }
-            else if (i_VehicleType.Equals(eVehicleTypes.ElectricMotorcycle) || i_VehicleType.Equals(eVehicleTypes.FuelMotorcycle))
-            {
-                numOfWheels = 2;
+                paramsToSend.Add(getSingleParamFromUser(i_ParameterTypes[i], i_ParamDescription[i]));
             }
 
-            return numOfWheels;
+            return paramsToSend;
         }
+
+        private object getSingleParamFromUser(Type i_ParameterType, string i_ParamDescription)
+        {
+            object objToReturn = new object();
+            string requestFromUser = "Please enter " + i_ParamDescription;
+
+            if (i_ParameterType == typeof(string))
+            {
+                requestFromUser += ", and then press enter:";
+                Console.WriteLine(requestFromUser);
+                objToReturn = Console.ReadLine();
+            }
+            else if (i_ParameterType == typeof(int))
+            {
+                int toConvert;
+                requestFromUser += ", and then press enter:";
+                Console.WriteLine(requestFromUser);
+                bool isSucceed = int.TryParse(Console.ReadLine(), out toConvert);
+                if (isSucceed)
+                {
+                    objToReturn = toConvert;
+                }
+                else
+                {
+                    throw new FormatException("Format fail");
+                }
+            }
+            else if (i_ParameterType.IsEnum)
+            {
+                string toShow = string.Format(
+@"Please select one of the options by selecting the option's number (1-{0}),
+then press enter:", Enum.GetValues(i_ParameterType).Length);
+                int indexEnum = 1;
+               foreach (var valEnum in Enum.GetValues(i_ParameterType))
+               {
+                    toShow += Environment.NewLine + indexEnum + ". " + valEnum;
+                    indexEnum++;
+               }
+               Console.WriteLine(toShow);
+               objToReturn = Enum.Parse(i_ParameterType, Console.ReadLine());
+            }
+            else if (i_ParameterType == typeof(float))
+            {
+                float toConvert;
+                requestFromUser += ", and then press enter:";
+                Console.WriteLine(requestFromUser);
+                bool isSucceed = float.TryParse(Console.ReadLine(), out toConvert);
+                if (isSucceed)
+                {
+                    objToReturn = toConvert;
+                }
+                else
+                {
+                    throw new FormatException("Format fail");
+                }
+            }
+            else if (i_ParameterType == typeof(bool))
+            {
+                Console.WriteLine("Please enter Y if " + i_ParamDescription + " and N if not");
+                string choise = Console.ReadLine().ToLower();
+                while (!checkInputValidation(choise, "^[y|n]{1}$"))
+                {
+                    Console.WriteLine("Invalid choise. please try again, and then press enter:");
+                    choise = Console.ReadLine().ToLower();
+                }
+                objToReturn = choise.Equals("y");
+            }
+
+            return objToReturn;
+        }
+
+
+
+        private bool checkInputValidation(string i_Choise, string i_Pattern)
+        {
+            return Regex.IsMatch(i_Choise, i_Pattern);
+        }
+
+
+
     }
 }

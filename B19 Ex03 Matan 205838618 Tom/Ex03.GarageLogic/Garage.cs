@@ -8,11 +8,11 @@ namespace Ex03.GarageLogic
     {
         private Dictionary<string, VehicleInGarage> m_VehiclesInGarage = new Dictionary<string, VehicleInGarage>();
 
-        public bool AddVehicleToGarage(string i_OwnerName, string i_OwnerPhone, eVehicleTypes i_Identifier, string i_Model, string i_License, float i_CurrentEnergySourceAmount, string i_WheelManufactor, float[] i_CurrentAirPressure, object i_VehicleSpecificParameter1, object i_VehicleSpecificParameter2)
+        public bool AddVehicleToGarage(string i_OwnerName, string i_OwnerPhone, eVehicleTypes i_Identifier, List<object> i_ParameterList)
         {
             bool vehicleAlreadyInGarage = false;
             Owner vehicleOwner = new Owner(i_OwnerName, i_OwnerPhone);
-            Vehicle vehicleToAdd = VehicleFactory.Create(i_Identifier, i_Model, i_License, i_CurrentEnergySourceAmount, i_WheelManufactor, i_CurrentAirPressure, i_VehicleSpecificParameter1, i_VehicleSpecificParameter2);
+            Vehicle vehicleToAdd = VehicleFactory.Create(i_Identifier, i_ParameterList);
 
             if (m_VehiclesInGarage.ContainsKey(vehicleToAdd.LicenseNumber))
             {
@@ -22,6 +22,7 @@ namespace Ex03.GarageLogic
             else
             {
                 m_VehiclesInGarage.Add(vehicleToAdd.LicenseNumber, new VehicleInGarage(vehicleToAdd, vehicleOwner));
+                Console.WriteLine(m_VehiclesInGarage[vehicleToAdd.LicenseNumber].Vehicle);
             }
 
             return vehicleAlreadyInGarage;
@@ -64,23 +65,23 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void FillWheelsToMax(string i_LicenseNumber)
-        {
-            bool isVehicleExists = false;
+        //public void FillWheelsToMax(string i_LicenseNumber)
+        //{
+        //    bool isVehicleExists = false;
 
-            if (m_VehiclesInGarage.ContainsKey(i_LicenseNumber))
-            {
-                foreach (Wheel wheel in m_VehiclesInGarage[i_LicenseNumber].Vehicle.Wheels)
-                {
-                    wheel.AddAirPressure(wheel.MaxAirPressure - wheel.CurrentAirPressure);
-                }
-                isVehicleExists = true;
-            }
-            if (!isVehicleExists)
-            {
-                throw new Exception("Error, This license number does not exist in the garage!");
-            }
-        }
+        //    if (m_VehiclesInGarage.ContainsKey(i_LicenseNumber))
+        //    {
+        //        foreach (Wheel wheel in m_VehiclesInGarage[i_LicenseNumber].Vehicle.Wheels)
+        //        {
+        //            wheel.AddAirPressure(wheel.MaxAirPressure - wheel.CurrentAirPressure);
+        //        }
+        //        isVehicleExists = true;
+        //    }
+        //    if (!isVehicleExists)
+        //    {
+        //        throw new Exception("Error, This license number does not exist in the garage!");
+        //    }
+        //}
 
         public void AddFuel(string i_LicenseNumber, eFuelType i_FuelType, float i_AmountToFill)
         {            

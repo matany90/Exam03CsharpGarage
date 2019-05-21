@@ -9,11 +9,19 @@ namespace Ex03.GarageLogic
         private bool? m_IsTransferHazardousMaterials;
         private int m_TruckLoadSize;
 
-        public Truck(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, bool? i_IsTransferHazardousMaterials, int i_TruckLoadSize, int i_NumberOfWheels, Wheel[] i_Wheel)
-    : base(i_ModelName, i_LicenseNumber, i_FuelType, i_CurrentFuelQuantity, i_MaxFuelQuantity, i_NumberOfWheels, i_Wheel)
+        public Truck(string i_ModelName, string i_LicenseNumber, float i_CurrentFuelQuantity, bool i_IsTransferHazardousMaterials, int i_TruckLoadSize/*, Wheel[] i_Wheel*/)
+    : base(i_ModelName, i_LicenseNumber, eFuelType.Soler, i_CurrentFuelQuantity, 110f, 12/*, i_Wheel*/)
         {
             m_IsTransferHazardousMaterials = i_IsTransferHazardousMaterials;
             m_TruckLoadSize = i_TruckLoadSize;
+        }
+
+
+        public static Type[] GetParamsTypesArray()
+        {
+            Type[] types = { typeof(string), typeof(string), typeof(float), typeof(bool), typeof(int) };
+
+            return types;
         }
 
         public override string ToString() // to delete

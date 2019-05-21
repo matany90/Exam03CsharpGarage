@@ -7,44 +7,35 @@ namespace Ex03.GarageLogic
     /////TEST CLASS
     public class VehicleFactory
     {
-        public static Vehicle Create(eVehicleTypes i_Identifier, string i_Model, string i_License, float i_CurrentEnergySourceAmount, string i_WheelManufactor, float[] i_CurrentAirPressure, object param6, object param7)
+        public static Dictionary<eVehicleTypes, VehicleParametersTypes> Vehicles
+            = new Dictionary<eVehicleTypes, VehicleParametersTypes>
         {
-            Vehicle vehicleToReturn = null;
-            eLicenseTypes licenseType;
-            eCarColor carColor;
-            eDoorsNumber doorsNumber;
-            int engineVolume;
-            
+    {eVehicleTypes.FuelCar, new VehicleParametersTypes(FuelCar.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Current Fuel Quantity", "Car Color", "Doors Number"})},
+    {eVehicleTypes.FuelMotorcycle, new VehicleParametersTypes(FuelMotorcycle.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Current Fuel Quantity", "License Types", "Engine Volume"})},
+    {eVehicleTypes.ElectricMotorcycle, new VehicleParametersTypes(ElectricMotorcycle.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Energy time remaining in the battery by hours", "License Types", "Engine Volume"})},
+    {eVehicleTypes.ElectricCar, new VehicleParametersTypes(ElectricCar.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Energy time remaining in the battery by hours", "Car Color", "Doors Number"})},
+     {eVehicleTypes.Truck, new VehicleParametersTypes(Truck.GetParamsTypesArray(), new string[] { "Model Name", "License Number", "Current Fuel Quantity", "truck transfer hazardous materials", "Truck load size"})},
+        };
+
+        public static Vehicle Create(eVehicleTypes i_Identifier, List<object> i_ParamsArray)
+        {
+            Vehicle vehicleToReturn = null;            
                 switch (i_Identifier)
                 {
                     case eVehicleTypes.FuelCar:
-                        carColor = (eCarColor)Enum.ToObject(typeof(eCarColor), param6);
-                        doorsNumber = (eDoorsNumber)Enum.ToObject(typeof(eDoorsNumber), param7);
-                    vehicleToReturn = new FuelCar(i_Model, i_License, eFuelType.Octan96, i_CurrentEnergySourceAmount, 55f, carColor, doorsNumber, 4, CreateWheels(4, i_WheelManufactor, i_CurrentAirPressure, 31f));
+                    vehicleToReturn = new FuelCar((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (eCarColor)i_ParamsArray[3], (eDoorsNumber)i_ParamsArray[4]/*, CreateWheels(4, i_WheelManufactor, i_CurrentAirPressure, 31f)*/);
                         break;
                     case eVehicleTypes.FuelMotorcycle:
-                        licenseType = (eLicenseTypes)Enum.ToObject(typeof(eLicenseTypes), param6);
-                        engineVolume = (int)param7;
-                    vehicleToReturn = new FuelMotorcycle(i_Model, i_License, eFuelType.Octan95, i_CurrentEnergySourceAmount, 8f, licenseType, engineVolume, 2, CreateWheels(2, i_WheelManufactor, i_CurrentAirPressure, 33f));
+                    vehicleToReturn = new FuelMotorcycle((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (eLicenseTypes)i_ParamsArray[3], (int)i_ParamsArray[4]/*, CreateWheels(2, i_WheelManufactor, i_CurrentAirPressure, 33f)*/);
                         break;
                     case eVehicleTypes.ElectricMotorcycle:
-                        licenseType = (eLicenseTypes)Enum.ToObject(typeof(eLicenseTypes), param6);
-                        engineVolume = (int)param7;
-                    vehicleToReturn = new ElectricMotorcycle(i_Model, i_License, i_CurrentEnergySourceAmount, 1.4f, licenseType, engineVolume, 2, CreateWheels(2, i_WheelManufactor, i_CurrentAirPressure, 33f));
+                    vehicleToReturn = new ElectricMotorcycle((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (eLicenseTypes)i_ParamsArray[3], (int)i_ParamsArray[4]/*, CreateWheels(2, i_WheelManufactor, i_CurrentAirPressure, 33f)*/);
                         break;
                     case eVehicleTypes.ElectricCar:
-                        carColor = (eCarColor)Enum.ToObject(typeof(eCarColor), param6);
-                        doorsNumber = (eDoorsNumber)Enum.ToObject(typeof(eDoorsNumber), param7);
-                    vehicleToReturn = new ElectricCar(i_Model, i_License, i_CurrentEnergySourceAmount, 1.8f, carColor, doorsNumber, 4, CreateWheels(4, i_WheelManufactor, i_CurrentAirPressure, 31f));
+                    vehicleToReturn = new ElectricCar((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (eCarColor)i_ParamsArray[3], (eDoorsNumber)i_ParamsArray[4]/*, CreateWheels(4, i_WheelManufactor, i_CurrentAirPressure, 31f)*/);
                         break;
                     case eVehicleTypes.Truck:
-                        bool? isTransferHazardousMaterials = param6 as bool?;
-                        if (isTransferHazardousMaterials == null)
-                        {
-                            throw new FormatException("Convert failier");
-                        }
-                        int truckLoadSize = (int)param7;
-                    vehicleToReturn = new Truck(i_Model, i_License, eFuelType.Soler, i_CurrentEnergySourceAmount, 110f, isTransferHazardousMaterials, truckLoadSize, 12, CreateWheels(12, i_WheelManufactor, i_CurrentAirPressure, 26f));
+                    vehicleToReturn = new Truck((string)i_ParamsArray[0], (string)i_ParamsArray[1], (float)i_ParamsArray[2], (bool)i_ParamsArray[3], (int)i_ParamsArray[4]/*, CreateWheels(12, i_WheelManufactor, i_CurrentAirPressure, 26f)*/);
                         break;
                     default:
                         break;

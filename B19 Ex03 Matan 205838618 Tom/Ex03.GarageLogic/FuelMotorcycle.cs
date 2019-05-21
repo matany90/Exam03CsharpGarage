@@ -8,10 +8,17 @@ namespace Ex03.GarageLogic
     {
         private MotorcycleProperties m_MotorcycleProperties;
 
-        public FuelMotorcycle(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, eLicenseTypes i_LicenseType, int i_EngineVolume, int i_NumberOfWheels, Wheel[] i_Wheel)
-            : base(i_ModelName, i_LicenseNumber, i_FuelType, i_CurrentFuelQuantity, i_MaxFuelQuantity, i_NumberOfWheels, i_Wheel)
+        public FuelMotorcycle(string i_ModelName, string i_LicenseNumber, float i_CurrentFuelQuantity, eLicenseTypes i_LicenseType, int i_EngineVolume/*, Wheel[] i_Wheel*/)
+            : base(i_ModelName, i_LicenseNumber, eFuelType.Octan95, i_CurrentFuelQuantity, 8f, 2/*, i_Wheel*/)
         {
             m_MotorcycleProperties = new MotorcycleProperties(i_LicenseType, i_EngineVolume);
+        }
+
+        public static Type[] GetParamsTypesArray()
+        {
+            Type[] types = { typeof(string), typeof(string), typeof(float), typeof(eLicenseTypes), typeof(int) };
+
+            return types;
         }
 
         public override string ToString()
