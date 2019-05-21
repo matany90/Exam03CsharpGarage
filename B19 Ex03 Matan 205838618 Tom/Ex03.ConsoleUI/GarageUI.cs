@@ -9,10 +9,21 @@ namespace Ex03.ConsoleUI
     {
         public GarageUI()
         {
-
-            Console.WriteLine("Welcome to Tom and Matan's garage!" + Environment.NewLine);
-            eMenuOptions userChoise = mainMenu();
-            garageOperations(userChoise);              
+            try
+            {
+                Console.WriteLine("Welcome to Tom and Matan's garage!" + Environment.NewLine);
+                eMenuOptions userChoise = mainMenu();
+                garageOperations(userChoise);
+            }
+            catch(FormatException fe)
+            {
+                Console.WriteLine("Format error");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("error general");
+            }
+            
         }
 
         private eMenuOptions mainMenu()
@@ -141,9 +152,10 @@ Please select one of the options (1-5), then press enter:
             }
             else if (i_ParameterType.IsEnum)
             {
+                int numberOfEnumValues = Enum.GetValues(i_ParameterType).Length;
                 string toShow = string.Format(
 @"Please select one of the options by selecting the option's number (1-{0}),
-then press enter:", Enum.GetValues(i_ParameterType).Length);
+then press enter:", numberOfEnumValues);
                 int indexEnum = 1;
                foreach (var valEnum in Enum.GetValues(i_ParameterType))
                {
@@ -151,7 +163,13 @@ then press enter:", Enum.GetValues(i_ParameterType).Length);
                     indexEnum++;
                }
                Console.WriteLine(toShow);
-               objToReturn = Enum.Parse(i_ParameterType, Console.ReadLine());
+                string choiseString = Console.ReadLine(); 
+                while (!checkInputValidation(choiseString, "^[1-" + numberOfEnumValues + "]{1}$"))
+                {
+                    Console.WriteLine("Invalid choise. please try again, and then press enter:");
+                    choiseString = Console.ReadLine();
+                }
+                objToReturn = Enum.Parse(i_ParameterType, choiseString);
             }
             else if (i_ParameterType == typeof(float))
             {
