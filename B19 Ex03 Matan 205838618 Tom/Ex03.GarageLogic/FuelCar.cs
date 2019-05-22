@@ -21,7 +21,7 @@ namespace Ex03.GarageLogic
             return types;
         }
 
-        public override string ToString() // to delete
+        public override string ToString() 
         {
             string fuelCarInfo = base.ToString() + Environment.NewLine + m_CarProperties.ToString();
 

@@ -18,7 +18,7 @@ namespace Ex03.GarageLogic
             m_LicenseNumber = i_LicenseNumber;
             m_EnergyLeftByPercentages = i_EnergyLeftByPercentages;
             m_Wheels = i_Wheels;
-            m_NumberOfWheels = i_NumberOfWheels;           
+            m_NumberOfWheels = i_NumberOfWheels;
         }
 
         public string LicenseNumber

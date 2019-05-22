@@ -44,6 +44,8 @@ namespace Ex03.ConsoleUI
         private eMenuOptions mainMenu()
         {
             string choise = string.Empty;
+            string optionalErrorToShow = "Invalid choise. please try again, and then press enter:";
+            string regexPatternForInputValidation = "^[1-8]{1}$";
 
             Console.WriteLine(
 @"What would you like to do?
@@ -57,11 +59,8 @@ Please select one of the options by selecting the option's number (1-8), then pr
 7. Show vehicle details
 8. Exit");
             choise = Console.ReadLine();
-            while (!checkInputValidation(choise, "^[1-8]{1}$"))
-            {
-                Console.WriteLine("Invalid choise. please try again, and then press enter:");
-                choise = Console.ReadLine();
-            }
+            bool isCaseSensitive = false;
+            checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
 
             return (eMenuOptions)Enum.Parse(typeof(eMenuOptions), choise);
         }
@@ -99,16 +98,15 @@ Please select one of the options by selecting the option's number (1-8), then pr
         {
             eVehicleConditions? vehicleStatusToFilter = null;
             bool toFilter;
+            bool isCaseSensitive = true;
+            string optionalErrorToShow = "Invalid choise. please try again, and then press enter:";
+            string regexPatternForInputValidation = "^[y|n]{1}$";
 
             Console.WriteLine(
 @"Would you like to filter license numbers by vehicle status?
 Choose Y/N, and then press enter:");
             string choise = Console.ReadLine().ToLower();
-            while (!checkInputValidation(choise, "^[y|n]{1}$"))
-            {
-                Console.WriteLine("Invalid choise. please try again, and then press enter:");
-                choise = Console.ReadLine();
-            }
+            checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
             toFilter = choise.Equals("y");
             if (toFilter)
             {
@@ -119,11 +117,9 @@ Select one of the options by selecting the option's number (1-3), then press ent
 2. Repaired
 3. Paid");
                 choise = Console.ReadLine();
-                while (!checkInputValidation(choise, "^[1-3]{1}$"))
-                {
-                    Console.WriteLine("Invalid choise. please try again, and then press enter:");
-                    choise = Console.ReadLine();
-                }
+                regexPatternForInputValidation = "^[1-3]{1}$";
+                isCaseSensitive = false;
+                checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
                 vehicleStatusToFilter = (eVehicleConditions)Enum.Parse(typeof(eVehicleConditions), choise);
             }
 
@@ -140,7 +136,9 @@ Select one of the options by selecting the option's number (1-3), then press ent
         {
             string licenseNumber = string.Empty;
             eVehicleConditions vehicleConditions;
-  
+            string optionalErrorToShow = "Invalid choise. please try again, and then press enter:";
+            string regexPatternForInputValidation = "^[1-3]{1}$";
+
             Console.WriteLine("Please enter a license number, and then press enter:");
             licenseNumber = Console.ReadLine();
             Console.WriteLine(
@@ -149,13 +147,10 @@ Select one of the options by selecting the option's number (1-3), then press ent
 1. InRepair
 2. Repaired
 3. Paid");
-            string strChoise = Console.ReadLine();
-            while (!checkInputValidation(strChoise, "^[1-3]{1}$"))
-            {
-                Console.WriteLine("Invalid choise. please try again, and then press enter:");
-                strChoise = Console.ReadLine();
-            }
-            vehicleConditions = (eVehicleConditions)Enum.Parse(typeof(eVehicleConditions), strChoise);
+            string choise = Console.ReadLine();
+            bool isCaseSensitive = false;
+            checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
+            vehicleConditions = (eVehicleConditions)Enum.Parse(typeof(eVehicleConditions), choise);
 
             i_Garage.ChangeVehicleState(licenseNumber, vehicleConditions);
         }
@@ -165,7 +160,9 @@ Select one of the options by selecting the option's number (1-3), then press ent
             string licenseNumber = string.Empty;
             eFuelType fuelType;
             float amountToFill;
-            
+            string regexPatternForInputValidation = "^[1-4]{1}$";
+            string optionalErrorToShow = "Invalid choise. please try again, and then press enter:";
+
             Console.WriteLine("Please enter a license number, and then press enter:");
             licenseNumber = Console.ReadLine();
             Console.WriteLine(
@@ -175,13 +172,10 @@ Select one of the options by selecting the option's number (1-4), then press ent
 2. Octan96
 3. Octan95
 4. Soler");
-            string strChoise = Console.ReadLine();
-            while (!checkInputValidation(strChoise, "^[1-4]{1}$"))
-            {
-                Console.WriteLine("Invalid choise. please try again, and then press enter:");
-                strChoise = Console.ReadLine();
-            }
-            fuelType = (eFuelType)Enum.Parse(typeof(eFuelType), strChoise);
+            string choise = Console.ReadLine();
+            bool isCaseSensitive = false;
+            checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
+            fuelType = (eFuelType)Enum.Parse(typeof(eFuelType), choise);
             Console.WriteLine("Please enter the amount of liters of fuel to add, and then press enter:");
             amountToFill = float.Parse(Console.ReadLine());
 
@@ -252,6 +246,9 @@ Select one of the options by selecting the option's number (1-4), then press ent
         {
             string keysValues = string.Empty;
             int vehicleIndex = 1;
+            bool isCaseSensitive = false;
+            string optionalErrorToShow = "Invalid choise. please try again, and then press enter:";
+
             foreach (eVehicleTypes key in i_VehicleTypes)
             {
                 keysValues += vehicleIndex + ". " + key + Environment.NewLine;
@@ -262,29 +259,26 @@ Select one of the options by selecting the option's number (1-4), then press ent
 Please enter the type of vehicle you want to insert into the garage.
 Please select one of the options (1-{0}), then press enter:
 {1}", i_VehicleTypes.Count, keysValues));
-            string vehicleChoiseString = string.Empty;
-            vehicleChoiseString = Console.ReadLine();
-            while (!checkInputValidation(vehicleChoiseString, "^[1-" + i_VehicleTypes.Count + "]{1}$"))
-            {
-                Console.WriteLine("Invalid choise. please try again, and then press enter:");
-                vehicleChoiseString = Console.ReadLine();
-            }
+            string vehicleChoiseString = Console.ReadLine();
+            string regexPatternForInputValidation = "^[1-" + i_VehicleTypes.Count + "]{1}$";
+            checkInputValidation(ref vehicleChoiseString, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
+
             return (eVehicleTypes)Enum.Parse(typeof(eVehicleTypes), vehicleChoiseString);
         }
 
         private void getOwnerNameAndPhone(out string o_ownerName, out string o_ownerPhone)
         {
+            string regexPatternForInputValidation = "^[0-9]*$";
+            string optionalErrorToShow = "Invalid Input. Phone number can contain digits only.";
+            bool isCaseSensitive = false;
+
             Console.WriteLine(
 @"Details of vehicle owner:
 Please enter the name of the vehicle owner, then press enter:");
             o_ownerName = Console.ReadLine();
             Console.WriteLine("Please enter the phone number of the vehicle owner, then press enter:");
             o_ownerPhone = Console.ReadLine();
-            while (!checkInputValidation(o_ownerPhone, "^[0-9]*$"))
-            {
-                Console.WriteLine("Invalid Input. Phone number can contain digits only.");
-                o_ownerPhone = Console.ReadLine();
-            }
+            checkInputValidation(ref o_ownerPhone, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
         }
 
         private List<object> getParamsFromUser(Type[] i_ParameterTypes, string[] i_ParamDescription)
@@ -302,6 +296,9 @@ Please enter the name of the vehicle owner, then press enter:");
         private object getSingleParamFromUser(Type i_ParameterType, string i_ParamDescription)
         {
             object objToReturn = new object();
+            string errorMessageShowUser = "Invalid choise. please try again, and then press enter:";
+            bool isCaseSensitive = false;
+            string regexPatternForInputValidation = string.Empty;
             string requestFromUser = "Please enter " + i_ParamDescription;
 
             if (i_ParameterType == typeof(string))
@@ -312,18 +309,10 @@ Please enter the name of the vehicle owner, then press enter:");
             }
             else if (i_ParameterType == typeof(int))
             {
-                int toConvert;
                 requestFromUser += ", and then press enter:";
                 Console.WriteLine(requestFromUser);
-                bool isSucceed = int.TryParse(Console.ReadLine(), out toConvert);
-                if (isSucceed)
-                {
-                    objToReturn = toConvert;
-                }
-                else
-                {
-                    throw new FormatException("Format fail");
-                }
+                objToReturn = int.Parse(Console.ReadLine());
+
             }
             else if (i_ParameterType.IsEnum)
             {
@@ -338,47 +327,44 @@ then press enter:", numberOfEnumValues);
                     indexEnum++;
                }
                Console.WriteLine(toShow);
-                string choiseString = Console.ReadLine(); 
-                while (!checkInputValidation(choiseString, "^[1-" + numberOfEnumValues + "]{1}$"))
-                {
-                    Console.WriteLine("Invalid choise. please try again, and then press enter:");
-                    choiseString = Console.ReadLine();
-                }
+                string choiseString = Console.ReadLine();
+                regexPatternForInputValidation = "^[1-" + numberOfEnumValues + "]{1}$";
+                checkInputValidation(ref choiseString, regexPatternForInputValidation, errorMessageShowUser, isCaseSensitive);
                 objToReturn = Enum.Parse(i_ParameterType, choiseString);
             }
             else if (i_ParameterType == typeof(float))
             {
-                float toConvert;
                 requestFromUser += ", and then press enter:";
                 Console.WriteLine(requestFromUser);
-                bool isSucceed = float.TryParse(Console.ReadLine(), out toConvert);
-                if (isSucceed)
-                {
-                    objToReturn = toConvert;
-                }
-                else
-                {
-                    throw new FormatException("Format fail");
-                }
+                objToReturn = float.Parse(Console.ReadLine());
             }
             else if (i_ParameterType == typeof(bool))
             {
                 Console.WriteLine("Please enter Y if " + i_ParamDescription + " and N if not");
                 string choise = Console.ReadLine().ToLower();
-                while (!checkInputValidation(choise, "^[y|n]{1}$"))
-                {
-                    Console.WriteLine("Invalid choise. please try again, and then press enter:");
-                    choise = Console.ReadLine().ToLower();
-                }
+                isCaseSensitive = true;
+                regexPatternForInputValidation = "^[y|n]{1}$";
+                checkInputValidation(ref choise, regexPatternForInputValidation, errorMessageShowUser, isCaseSensitive);
                 objToReturn = choise.Equals("y");
             }
 
             return objToReturn;
         }
 
-        private bool checkInputValidation(string i_Choise, string i_Pattern)
+        private void checkInputValidation(ref string i_Choise, string i_PatternRegex, string i_ErrorMessage, bool toLower)
         {
-            return Regex.IsMatch(i_Choise, i_Pattern);
+            while (!Regex.IsMatch(i_Choise, i_PatternRegex))
+            {
+                Console.WriteLine(i_ErrorMessage);
+                if (toLower)
+                {
+                    i_Choise = Console.ReadLine().ToLower();
+                }
+                else
+                {
+                    i_Choise = Console.ReadLine();
+                }
+            }
         }
 
     }
