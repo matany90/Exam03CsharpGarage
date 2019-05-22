@@ -222,12 +222,13 @@ Select one of the options by selecting the option's number (1-4), then press ent
         ////Handle Add Veichle to garage
         ////Take all Vehicles types in garage from VehicleFactory class
         ////Building an object-type collection that will contain all the parameter-types for building the vehicle, according to user's choise
-        ////
         ////Building a wheel-type collection according to vehicle-type user select
         private void handleAddVehicle(Garage garage)
         {
-            Dictionary<eVehicleTypes, VehicleParametersTypes> vehicles = VehicleFactory.Vehicles;
+            Dictionary<eVehicleTypes, Type> vehicles = VehicleFactory.Vehicles;
             Dictionary<eVehicleTypes, int> wheelsNumber = VehicleFactory.WheelsNumberPerVehicle;
+            Type[] parametersTypesFromConstructorArray;
+            List<string> parametersDescription = new List<string>();
             string ownerName = string.Empty;
             string ownerPhone = string.Empty;
             Wheel[] wheelsArray;
@@ -235,11 +236,33 @@ Select one of the options by selecting the option's number (1-4), then press ent
             eVehicleTypes vehicleChoise;
 
             getOwnerNameAndPhone(out ownerName, out ownerPhone);
-            vehicleChoise = getVehicleTypeToInsertGarage(vehicles.Keys);
-            paramsToBuildVehicle = getParametersFromUserByVehicleType(vehicles[vehicleChoise].ParameterTypes, vehicles[vehicleChoise].ParameterDescription);
+            vehicleChoise = getVehicleTypeFromUserToInsertGarage(vehicles.Keys);
+            parametersTypesFromConstructorArray = takeConstructorParametersTypes(vehicles[vehicleChoise], parametersDescription);
+            paramsToBuildVehicle = getParametersFromUserByVehicleType(parametersTypesFromConstructorArray, parametersDescription.ToArray());
             wheelsArray = getWheelsArray(wheelsNumber[vehicleChoise]);
             garage.AddVehicleToGarage(ownerName, ownerPhone, vehicleChoise, paramsToBuildVehicle, wheelsArray);
         }
+
+        ////Uses reflaction to get the list of parameters types
+        private Type[] takeConstructorParametersTypes(Type i_VehicleType, List<string> i_ParametersDescription)
+        {
+            ParameterInfo[] paramInfo = i_VehicleType.GetConstructors()[0].GetParameters();
+            Type[] typesArray = new Type[paramInfo.Length];
+
+            for (int i = 0; i < paramInfo.Length; i++)
+            {
+                typesArray[i] = paramInfo[i].ParameterType;
+                i_ParametersDescription.Add(paramInfo[i].Name);
+            }
+            //editStringsDescription(i_ParametersDescription);
+
+            return typesArray;
+        }
+
+        //private void editStringsDescription(List<string> i_ParametersDescription)
+        //{
+
+        //}
 
         ////Building wheels collection
         private Wheel[] getWheelsArray(int i_WheelsNumber)
@@ -263,7 +286,7 @@ Select one of the options by selecting the option's number (1-4), then press ent
         }
 
         ////The user choose which vehicle he wants to add to the garage, according to the types of vehicles in VehicleFactory
-        private eVehicleTypes getVehicleTypeToInsertGarage(Dictionary<eVehicleTypes, VehicleParametersTypes>.KeyCollection i_VehicleTypes)
+        private eVehicleTypes getVehicleTypeFromUserToInsertGarage(Dictionary<eVehicleTypes, Type>.KeyCollection i_VehicleTypes)
         {
             string keysValues = string.Empty;
             int vehicleIndex = 1;
