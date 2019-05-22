@@ -8,8 +8,8 @@ namespace Ex03.GarageLogic
     {
         private MotorcycleProperties m_MotorcycleProperties;
 
-        public FuelMotorcycle(string i_ModelName, string i_LicenseNumber, float i_CurrentFuelQuantity, eLicenseTypes i_LicenseType, int i_EngineVolume/*, Wheel[] i_Wheel*/)
-            : base(i_ModelName, i_LicenseNumber, eFuelType.Octan95, i_CurrentFuelQuantity, 8f, 2/*, i_Wheel*/)
+        public FuelMotorcycle(string i_ModelName, string i_LicenseNumber, float i_CurrentFuelQuantity, eLicenseTypes i_LicenseType, int i_EngineVolume, Wheel[] i_Wheel)
+            : base(i_ModelName, i_LicenseNumber, eFuelType.Octan95, i_CurrentFuelQuantity, 8f, 2, i_Wheel)
         {
             m_MotorcycleProperties = new MotorcycleProperties(i_LicenseType, i_EngineVolume);
         }
@@ -21,19 +21,11 @@ namespace Ex03.GarageLogic
             return types;
         }
 
-        public override string ToString()
+        public override string ToString() // to delete
         {
-            string toShow = string.Format(
-@"Model: {0}
-License Number: {1}
-Fuel type: {2}
-Current Fuel Quantity: {3}
-Max Fuel Quantity: {4}
-Energy left by %: {5}
-", m_ModelName, m_LicenseNumber, m_FuelType, m_CurrentFuelQuantity, m_MaxFuelQuantity, m_EnergyLeftByPercentages);
-            toShow += m_MotorcycleProperties.ToString() + Environment.NewLine;
+            string fuelMotorcycleInfo = base.ToString() + Environment.NewLine + m_MotorcycleProperties.ToString();
 
-            return toShow;
+            return fuelMotorcycleInfo;
         }
 
         public MotorcycleProperties MotorcycleProperties

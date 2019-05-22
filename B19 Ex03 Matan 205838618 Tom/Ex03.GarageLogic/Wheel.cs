@@ -43,5 +43,15 @@ namespace Ex03.GarageLogic
         {
             get { return m_ManufacturerName; }
         }
+
+        public override string ToString()
+        {
+            string wheelInfo = string.Format(
+@"Wheel's Manufacturer Name: {0}
+Wheel's Current Air Pressure: {1}
+Wheel's Max Air Pressure: {2}", m_ManufacturerName, m_CurrentAirPressure, m_MaxAirPressure);
+
+            return wheelInfo;
+        }
     }
 }

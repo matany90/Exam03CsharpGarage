@@ -8,11 +8,11 @@ namespace Ex03.GarageLogic
     {
         private Dictionary<string, VehicleInGarage> m_VehiclesInGarage = new Dictionary<string, VehicleInGarage>();
 
-        public bool AddVehicleToGarage(string i_OwnerName, string i_OwnerPhone, eVehicleTypes i_Identifier, List<object> i_ParameterList)
+        public bool AddVehicleToGarage(string i_OwnerName, string i_OwnerPhone, eVehicleTypes i_Identifier, List<object> i_ParametersToCreateVehicle, Wheel[] i_Wheels)
         {
             bool vehicleAlreadyInGarage = false;
             Owner vehicleOwner = new Owner(i_OwnerName, i_OwnerPhone);
-            Vehicle vehicleToAdd = VehicleFactory.Create(i_Identifier, i_ParameterList);
+            Vehicle vehicleToAdd = VehicleFactory.Create(i_Identifier, i_ParametersToCreateVehicle, i_Wheels);
 
             if (m_VehiclesInGarage.ContainsKey(vehicleToAdd.LicenseNumber))
             {
@@ -21,9 +21,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                Console.WriteLine("after add " + vehicleToAdd.LicenseNumber);
                 m_VehiclesInGarage.Add(vehicleToAdd.LicenseNumber, new VehicleInGarage(vehicleToAdd, vehicleOwner));
-                //Console.WriteLine(m_VehiclesInGarage[vehicleToAdd.LicenseNumber].Vehicle); //testConsole
             }
 
             return vehicleAlreadyInGarage;

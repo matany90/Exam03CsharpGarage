@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
         FuelCar = 1,
         FuelMotorcycle = 2,
         ElectricMotorcycle = 3,
-        Truck = 4,
-        ElectricCar = 5,
+        ElectricCar = 4,
+        Truck = 5,
     }
 }

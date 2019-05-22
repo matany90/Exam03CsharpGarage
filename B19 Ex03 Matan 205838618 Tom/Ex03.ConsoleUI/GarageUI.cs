@@ -68,7 +68,6 @@ Please select one of the options by selecting the option's number (1-8), then pr
 
         private void garageOperations(eMenuOptions i_userChoise, Garage i_garage)
         {
-
             switch (i_userChoise)
             {
                 case eMenuOptions.AddVehicle:
@@ -119,7 +118,7 @@ Select one of the options by selecting the option's number (1-3), then press ent
 1. InRepair
 2. Repaired
 3. Paid");
-                choise = Console.ReadLine().ToLower();
+                choise = Console.ReadLine();
                 while (!checkInputValidation(choise, "^[1-3]{1}$"))
                 {
                     Console.WriteLine("Invalid choise. please try again, and then press enter:");
@@ -213,50 +212,81 @@ Select one of the options by selecting the option's number (1-4), then press ent
         private void handleAddVehicle(Garage garage)
         {
             Dictionary<eVehicleTypes, VehicleParametersTypes> vehicles = VehicleFactory.Vehicles; ////get types VehicleFactory
+            Dictionary<eVehicleTypes, int> wheelsNumber = VehicleFactory.WheelsNumberPerVehicle;
 
-            string ownerName = string.Empty;
+             string ownerName = string.Empty;
             string ownerPhone = string.Empty;
-            string manufacturerName = string.Empty;
+            Wheel[] wheelsArray;
             List<object> paramsToBuildVehicle = new List<object>();
             eVehicleTypes vehicleChoise;
 
-            Console.WriteLine(
-@"Details of vehicle owner:
-Please enter the name of the vehicle owner, then press enter:");
-            ownerName = Console.ReadLine();
-            Console.WriteLine("Please enter the phone number of the vehicle owner, then press enter:");
-            ownerPhone = Console.ReadLine();
-            while (!checkInputValidation(ownerPhone, "^[0-9]*$"))
+            getOwnerNameAndPhone(out ownerName, out ownerPhone);
+            vehicleChoise = getVehicleTypeToInsertGarage(vehicles.Keys);
+            paramsToBuildVehicle = getParamsFromUser(vehicles[vehicleChoise].ParameterTypes, vehicles[vehicleChoise].ParameterDescription);
+            wheelsArray = getWheelsArray(wheelsNumber[vehicleChoise]);
+
+            garage.AddVehicleToGarage(ownerName, ownerPhone, vehicleChoise, paramsToBuildVehicle, wheelsArray);
+        }
+        
+        private Wheel[] getWheelsArray(int i_WheelsNumber)
+        {
+            Wheel[] wheels = new Wheel[i_WheelsNumber];
+            string manufacturerName = string.Empty;
+            float currentAirPressure, maxAirPressure;
+
+            for (int i = 0; i < i_WheelsNumber; i++)
             {
-                Console.WriteLine("Invalid Input. Phone number can contain digits only.");
-                ownerPhone = Console.ReadLine();
+                Console.WriteLine("Please enter the manufacturer name for wheel number " + (i + 1));
+                manufacturerName = Console.ReadLine();
+                Console.WriteLine("Please enter current air pressure for wheel number " + (i + 1));
+                currentAirPressure = float.Parse(Console.ReadLine());
+                Console.WriteLine("Please enter maximum air pressure set by the manufacturer for wheel number " + (i + 1));
+                maxAirPressure = float.Parse(Console.ReadLine());
+                wheels[i] = new Wheel(manufacturerName, currentAirPressure, maxAirPressure);
             }
-            Console.WriteLine(
+
+            return wheels;
+        }
+
+        private eVehicleTypes getVehicleTypeToInsertGarage(Dictionary<eVehicleTypes, VehicleParametersTypes>.KeyCollection i_VehicleTypes)
+        {
+            string keysValues = string.Empty;
+            int vehicleIndex = 1;
+            foreach (eVehicleTypes key in i_VehicleTypes)
+            {
+                keysValues += vehicleIndex + ". " + key + Environment.NewLine;
+                vehicleIndex++;
+            }
+            Console.Write(string.Format(
 @"Vehicle details:
 Please enter the type of vehicle you want to insert into the garage.
-Please select one of the options (1-5), then press enter:
-1. FuelCar
-2. FuelMotorcycle
-3. ElectricMotorcycle
-4. Truck
-5. ElectricCar");
+Please select one of the options (1-{0}), then press enter:
+{1}", i_VehicleTypes.Count, keysValues));
             string vehicleChoiseString = string.Empty;
             vehicleChoiseString = Console.ReadLine();
-            while (!checkInputValidation(vehicleChoiseString, "^[1-5]{1}$"))
+            while (!checkInputValidation(vehicleChoiseString, "^[1-" + i_VehicleTypes.Count + "]{1}$"))
             {
                 Console.WriteLine("Invalid choise. please try again, and then press enter:");
                 vehicleChoiseString = Console.ReadLine();
             }
-            vehicleChoise = (eVehicleTypes)Enum.Parse(typeof(eVehicleTypes), vehicleChoiseString);
-            paramsToBuildVehicle = getParamsFromUser(vehicles[vehicleChoise].ParameterTypes, vehicles[vehicleChoise].ParameterDescription);
-            //Console.WriteLine("Please enter wheel manufacturer name:");
-            //manufacturerName = Console.ReadLine();
-            //Console.WriteLine("Please enter current air pressure for the wheel:");
-            //paramsToBuildVehicle.Add(float.Parse(Console.ReadLine()));
-
-            garage.AddVehicleToGarage(ownerName, ownerPhone, vehicleChoise, paramsToBuildVehicle);
+            return (eVehicleTypes)Enum.Parse(typeof(eVehicleTypes), vehicleChoiseString);
         }
-        
+
+        private void getOwnerNameAndPhone(out string o_ownerName, out string o_ownerPhone)
+        {
+            Console.WriteLine(
+@"Details of vehicle owner:
+Please enter the name of the vehicle owner, then press enter:");
+            o_ownerName = Console.ReadLine();
+            Console.WriteLine("Please enter the phone number of the vehicle owner, then press enter:");
+            o_ownerPhone = Console.ReadLine();
+            while (!checkInputValidation(o_ownerPhone, "^[0-9]*$"))
+            {
+                Console.WriteLine("Invalid Input. Phone number can contain digits only.");
+                o_ownerPhone = Console.ReadLine();
+            }
+        }
+
         private List<object> getParamsFromUser(Type[] i_ParameterTypes, string[] i_ParamDescription)
         {
             List<object> paramsToSend = new List<object>();
@@ -342,10 +372,6 @@ then press enter:", numberOfEnumValues);
                 }
                 objToReturn = choise.Equals("y");
             }
-            //else if (i_ParameterType.IsSubclassOf(typeof(Vehicle)))
-            //{
-            //    Type obj = ()Activator.CreateInstance(i_ParameterType);
-            //}
 
             return objToReturn;
         }

@@ -10,8 +10,8 @@ namespace Ex03.GarageLogic
         protected float m_CurrentFuelQuantity;
         protected float m_MaxFuelQuantity;
 
-        public FuelVehicle(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, int i_NumberOfWheels/*, Wheel[] i_Wheels*/)
-            : base(i_ModelName, i_LicenseNumber, (i_CurrentFuelQuantity / i_MaxFuelQuantity) * 100, i_NumberOfWheels/*, i_Wheels*/)
+        public FuelVehicle(string i_ModelName, string i_LicenseNumber, eFuelType i_FuelType, float i_CurrentFuelQuantity, float i_MaxFuelQuantity, int i_NumberOfWheels, Wheel[] i_Wheels)
+            : base(i_ModelName, i_LicenseNumber, (i_CurrentFuelQuantity / i_MaxFuelQuantity) * 100, i_NumberOfWheels, i_Wheels)
         {
             m_FuelType = i_FuelType;
             m_CurrentFuelQuantity = i_CurrentFuelQuantity;
@@ -60,6 +60,18 @@ You try to add more fuel than the vehicle's fuel capacity"));
         public float MaxFuelQuantity
         {
             get { return m_MaxFuelQuantity; }
+        }
+
+        public override string ToString()
+        {
+            string fuelVehicleInfo = string.Format(
+@"{0}
+Fuel Info:
+Fuel type: {1}
+Current Fuel Quantity: {2}
+Max Fuel Quantity: {3}", base.ToString(), m_FuelType, m_CurrentFuelQuantity, m_MaxFuelQuantity);
+
+            return fuelVehicleInfo;
         }
 
     }

@@ -12,18 +12,13 @@ namespace Ex03.GarageLogic
         protected Wheel[] m_Wheels;
         protected int m_NumberOfWheels;
 
-        public Vehicle(string i_ModelName, string i_LicenseNumber, float i_EnergyLeftByPercentages, int i_NumberOfWheels/*, Wheel[] i_Wheels*/)
+        public Vehicle(string i_ModelName, string i_LicenseNumber, float i_EnergyLeftByPercentages, int i_NumberOfWheels, Wheel[] i_Wheels)
         {
             m_ModelName = i_ModelName;
             m_LicenseNumber = i_LicenseNumber;
             m_EnergyLeftByPercentages = i_EnergyLeftByPercentages;
-            m_NumberOfWheels = i_NumberOfWheels;
-
-            //m_Wheels = new Wheel[i_NumberOfWheels];
-            //for (int i = 0; i < i_NumberOfWheels; i++)
-            //{
-            //    m_Wheels[i] = new Wheel(i_Wheels[i].ManufactorName, i_Wheels[i].CurrentAirPressure, i_Wheels[i].MaxAirPressure);
-            //}
+            m_Wheels = i_Wheels;
+            m_NumberOfWheels = i_NumberOfWheels;           
         }
 
         public string LicenseNumber
@@ -44,6 +39,26 @@ namespace Ex03.GarageLogic
         public string ModelName
         {
             get { return m_ModelName; }
+        }
+        public override string ToString()
+        {
+            string vehicleInfo = string.Format(
+@"Wheels Info:
+Model: {0}
+License Number: {1}
+Energy left by %: {2}
+
+Wheels Info:
+Number of wheels: {3} 
+", m_ModelName, m_LicenseNumber, m_EnergyLeftByPercentages, m_NumberOfWheels);
+            int wheelIndex = 1;
+            foreach (Wheel wheel in m_Wheels)
+            {
+                vehicleInfo += "Wheel number " + wheelIndex + ":" + Environment.NewLine + wheel.ToString() + Environment.NewLine;
+                wheelIndex++;
+            }
+
+            return vehicleInfo;
         }
     }
 }
