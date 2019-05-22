@@ -125,7 +125,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public string ShowVehicleInfo(string i_LicenseNumber)
+        public string GetVehicleInfo(string i_LicenseNumber)
         {
             string toShow = string.Empty;
 

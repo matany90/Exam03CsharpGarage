@@ -40,10 +40,11 @@ namespace Ex03.ConsoleUI
             }
             
         }
-
+        ////Show main menu and take user choise
         private eMenuOptions mainMenu()
         {
             string choise = string.Empty;
+            bool isCaseSensitive = false;
             string optionalErrorToShow = "Invalid choise. please try again, and then press enter:";
             string regexPatternForInputValidation = "^[1-8]{1}$";
 
@@ -59,12 +60,12 @@ Please select one of the options by selecting the option's number (1-8), then pr
 7. Show vehicle details
 8. Exit");
             choise = Console.ReadLine();
-            bool isCaseSensitive = false;
             checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
 
             return (eMenuOptions)Enum.Parse(typeof(eMenuOptions), choise);
         }
 
+        ////
         private void garageOperations(eMenuOptions i_userChoise, Garage i_garage)
         {
             switch (i_userChoise)
@@ -90,11 +91,14 @@ Please select one of the options by selecting the option's number (1-8), then pr
                 case eMenuOptions.ShowVehicleByLicense:
                     handleShowVehicle(i_garage);
                     break;
+                case eMenuOptions.Exit:
+                    break;
                 default:
                     break;
             }
         }
 
+        ////Handle AddVehicle choise
         private void handleFillAirPressureToMax(Garage i_Garage)
         {
             string licenseNumber = string.Empty;
@@ -103,6 +107,8 @@ Please select one of the options by selecting the option's number (1-8), then pr
             licenseNumber = Console.ReadLine();
             i_Garage.FillWheelsToMax(licenseNumber);
         }
+
+        ////Handle ShowLicenses choise
         private void handleShowLicenses(Garage i_Garage)
         {
             eVehicleConditions? vehicleStatusToFilter = null;
@@ -131,7 +137,6 @@ Select one of the options by selecting the option's number (1-3), then press ent
                 checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
                 vehicleStatusToFilter = (eVehicleConditions)Enum.Parse(typeof(eVehicleConditions), choise);
             }
-
             List<string> licenseToShow = i_Garage.ShowLicenseNumbersbool(toFilter, vehicleStatusToFilter);
             int indexLicense = 1;
             foreach (string license in licenseToShow)
@@ -141,6 +146,7 @@ Select one of the options by selecting the option's number (1-3), then press ent
             }
         }
 
+        ////Handle Change Status of Vehicle in garage
         private void handleChangeStatus(Garage i_Garage)
         {
             string licenseNumber = string.Empty;
@@ -160,10 +166,10 @@ Select one of the options by selecting the option's number (1-3), then press ent
             bool isCaseSensitive = false;
             checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
             vehicleConditions = (eVehicleConditions)Enum.Parse(typeof(eVehicleConditions), choise);
-
             i_Garage.ChangeVehicleState(licenseNumber, vehicleConditions);
         }
 
+        ////Handle Add Fuel by license Number
         private void handleAddFuel(Garage i_Garage)
         {
             string licenseNumber = string.Empty;
@@ -187,10 +193,10 @@ Select one of the options by selecting the option's number (1-4), then press ent
             fuelType = (eFuelType)Enum.Parse(typeof(eFuelType), choise);
             Console.WriteLine("Please enter the amount of liters of fuel to add, and then press enter:");
             amountToFill = float.Parse(Console.ReadLine());
-
             i_Garage.AddFuel(licenseNumber, fuelType, amountToFill);
         }
 
+        ////Handle Charge battery by license Number
         private void handleChargeBattery(Garage i_Garage)
         {
             string licenseNumber = string.Empty;
@@ -203,21 +209,26 @@ Select one of the options by selecting the option's number (1-4), then press ent
             i_Garage.ChargeBattery(licenseNumber, chargeByMinutes);
         }
 
+        ////Handle Show Vehicle by license Number
         private void handleShowVehicle(Garage i_Garage)
         {
             string licenseNumber = string.Empty;
 
             Console.WriteLine("Please enter a license number, and then press enter:");
             licenseNumber = Console.ReadLine();
-            Console.WriteLine(i_Garage.ShowVehicleInfo(licenseNumber)); 
+            Console.WriteLine(i_Garage.GetVehicleInfo(licenseNumber)); 
         }
 
+        ////Handle Add Veichle to garage
+        ////Take all Vehicles types in garage from VehicleFactory class
+        ////Building an object-type collection that will contain all the parameter-types for building the vehicle, according to user's choise
+        ////
+        ////Building a wheel-type collection according to vehicle-type user select
         private void handleAddVehicle(Garage garage)
         {
-            Dictionary<eVehicleTypes, VehicleParametersTypes> vehicles = VehicleFactory.Vehicles; ////get types VehicleFactory
+            Dictionary<eVehicleTypes, VehicleParametersTypes> vehicles = VehicleFactory.Vehicles;
             Dictionary<eVehicleTypes, int> wheelsNumber = VehicleFactory.WheelsNumberPerVehicle;
-
-             string ownerName = string.Empty;
+            string ownerName = string.Empty;
             string ownerPhone = string.Empty;
             Wheel[] wheelsArray;
             List<object> paramsToBuildVehicle = new List<object>();
@@ -225,12 +236,12 @@ Select one of the options by selecting the option's number (1-4), then press ent
 
             getOwnerNameAndPhone(out ownerName, out ownerPhone);
             vehicleChoise = getVehicleTypeToInsertGarage(vehicles.Keys);
-            paramsToBuildVehicle = getParamsFromUser(vehicles[vehicleChoise].ParameterTypes, vehicles[vehicleChoise].ParameterDescription);
+            paramsToBuildVehicle = getParametersFromUserByVehicleType(vehicles[vehicleChoise].ParameterTypes, vehicles[vehicleChoise].ParameterDescription);
             wheelsArray = getWheelsArray(wheelsNumber[vehicleChoise]);
-
             garage.AddVehicleToGarage(ownerName, ownerPhone, vehicleChoise, paramsToBuildVehicle, wheelsArray);
         }
-        
+
+        ////Building wheels collection
         private Wheel[] getWheelsArray(int i_WheelsNumber)
         {
             Wheel[] wheels = new Wheel[i_WheelsNumber];
@@ -251,6 +262,7 @@ Select one of the options by selecting the option's number (1-4), then press ent
             return wheels;
         }
 
+        ////The user choose which vehicle he wants to add to the garage, according to the types of vehicles in VehicleFactory
         private eVehicleTypes getVehicleTypeToInsertGarage(Dictionary<eVehicleTypes, VehicleParametersTypes>.KeyCollection i_VehicleTypes)
         {
             string keysValues = string.Empty;
@@ -275,36 +287,43 @@ Please select one of the options (1-{0}), then press enter:
             return (eVehicleTypes)Enum.Parse(typeof(eVehicleTypes), vehicleChoiseString);
         }
 
+        ////Take owner name and phone from user
         private void getOwnerNameAndPhone(out string o_ownerName, out string o_ownerPhone)
         {
-            string regexPatternForInputValidation = "^[0-9]*$";
-            string optionalErrorToShow = "Invalid Input. Phone number can contain digits only.";
+            string regexPatternForInputValidation = "^[a-zA-Z]+$";
+            string optionalErrorToShow = "Invalid Input. Name can contain letters only.";
             bool isCaseSensitive = false;
 
             Console.WriteLine(
 @"Details of vehicle owner:
 Please enter the name of the vehicle owner, then press enter:");
             o_ownerName = Console.ReadLine();
+            checkInputValidation(ref o_ownerName, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
             Console.WriteLine("Please enter the phone number of the vehicle owner, then press enter:");
             o_ownerPhone = Console.ReadLine();
+            regexPatternForInputValidation = "^[0-9]*$";
+            optionalErrorToShow = "Invalid Input. Phone number can contain digits only.";
             checkInputValidation(ref o_ownerPhone, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
         }
 
-        private List<object> getParamsFromUser(Type[] i_ParameterTypes, string[] i_ParamDescription)
+        ////Take parameters by its type from user
+        private List<object> getParametersFromUserByVehicleType(Type[] i_ParameterTypes, string[] i_ParamDescription)
         {
-            List<object> paramsToSend = new List<object>();
+            List<object> paramsToBuildVehicle = new List<object>();
+
             for (int i = 0; i < i_ParamDescription.Length; i++)
             {
-                paramsToSend.Add(getSingleParamFromUser(i_ParameterTypes[i], i_ParamDescription[i]));
+                paramsToBuildVehicle.Add(getSingleParameterFromUserByVehicleType(i_ParameterTypes[i], i_ParamDescription[i]));
             }
 
-
-            return paramsToSend;
+            return paramsToBuildVehicle;
         }
 
-        private object getSingleParamFromUser(Type i_ParameterType, string i_ParamDescription)
+        ////Take a specific parameter by its type from user
+        ////Uses a reflection to determine which type of parameter to take from user
+        private object getSingleParameterFromUserByVehicleType(Type i_ParameterType, string i_ParamDescription)
         {
-            object objToReturn = new object();
+            object buildParameterToReturn = new object();
             string errorMessageShowUser = "Invalid choise. please try again, and then press enter:";
             bool isCaseSensitive = false;
             string regexPatternForInputValidation = string.Empty;
@@ -314,13 +333,13 @@ Please enter the name of the vehicle owner, then press enter:");
             {
                 requestFromUser += ", and then press enter:";
                 Console.WriteLine(requestFromUser);
-                objToReturn = Console.ReadLine();
+                buildParameterToReturn = Console.ReadLine();
             }
             else if (i_ParameterType == typeof(int))
             {
                 requestFromUser += ", and then press enter:";
                 Console.WriteLine(requestFromUser);
-                objToReturn = int.Parse(Console.ReadLine());
+                buildParameterToReturn = int.Parse(Console.ReadLine());
 
             }
             else if (i_ParameterType.IsEnum)
@@ -330,7 +349,7 @@ Please enter the name of the vehicle owner, then press enter:");
 @"Please select one of the options by selecting the option's number (1-{0}),
 then press enter:", numberOfEnumValues);
                 int indexEnum = 1;
-               foreach (var valEnum in Enum.GetValues(i_ParameterType))
+               foreach (Enum valEnum in Enum.GetValues(i_ParameterType))
                {
                     toShow += Environment.NewLine + indexEnum + ". " + valEnum;
                     indexEnum++;
@@ -339,13 +358,13 @@ then press enter:", numberOfEnumValues);
                 string choiseString = Console.ReadLine();
                 regexPatternForInputValidation = "^[1-" + numberOfEnumValues + "]{1}$";
                 checkInputValidation(ref choiseString, regexPatternForInputValidation, errorMessageShowUser, isCaseSensitive);
-                objToReturn = Enum.Parse(i_ParameterType, choiseString);
+                buildParameterToReturn = Enum.Parse(i_ParameterType, choiseString);
             }
             else if (i_ParameterType == typeof(float))
             {
                 requestFromUser += ", and then press enter:";
                 Console.WriteLine(requestFromUser);
-                objToReturn = float.Parse(Console.ReadLine());
+                buildParameterToReturn = float.Parse(Console.ReadLine());
             }
             else if (i_ParameterType == typeof(bool))
             {
@@ -354,12 +373,13 @@ then press enter:", numberOfEnumValues);
                 isCaseSensitive = true;
                 regexPatternForInputValidation = "^[y|n]{1}$";
                 checkInputValidation(ref choise, regexPatternForInputValidation, errorMessageShowUser, isCaseSensitive);
-                objToReturn = choise.Equals("y");
+                buildParameterToReturn = choise.Equals("y");
             }
 
-            return objToReturn;
+            return buildParameterToReturn;
         }
 
+        ////Check input validation by regex expression
         private void checkInputValidation(ref string i_Choise, string i_PatternRegex, string i_ErrorMessage, bool toLower)
         {
             while (!Regex.IsMatch(i_Choise, i_PatternRegex))
