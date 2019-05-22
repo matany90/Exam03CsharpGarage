@@ -11,14 +11,23 @@ namespace Ex03.GarageLogic
         protected float m_EnergyLeftByPercentages;
         protected Wheel[] m_Wheels;
         protected int m_NumberOfWheels;
+        protected float m_VehicleMaxWheelAirPressure;
 
-        public Vehicle(string i_ModelName, string i_LicenseNumber, float i_EnergyLeftByPercentages, int i_NumberOfWheels, Wheel[] i_Wheels)
+        public Vehicle(string i_ModelName, string i_LicenseNumber, float i_EnergyLeftByPercentages, int i_NumberOfWheels, Wheel[] i_Wheels, float i_VehicleMaxWheelAirPressure)
         {
+            m_VehicleMaxWheelAirPressure = i_VehicleMaxWheelAirPressure;
             m_ModelName = i_ModelName;
             m_LicenseNumber = i_LicenseNumber;
             m_EnergyLeftByPercentages = i_EnergyLeftByPercentages;
             m_Wheels = i_Wheels;
             m_NumberOfWheels = i_NumberOfWheels;
+            foreach (Wheel wheel in m_Wheels)
+            {
+                if (wheel.MaxAirPressure > m_VehicleMaxWheelAirPressure)
+                {
+                    throw new ValueOutOfRangeException(null, m_VehicleMaxWheelAirPressure, 0);
+                }
+            }
         }
 
         public string LicenseNumber

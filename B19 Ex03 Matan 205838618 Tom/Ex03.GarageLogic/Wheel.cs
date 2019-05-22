@@ -12,9 +12,14 @@ namespace Ex03.GarageLogic
 
         public Wheel(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
         {
-            m_ManufacturerName = i_ManufacturerName;
-            m_CurrentAirPressure = i_CurrentAirPressure;
-            m_MaxAirPressure = i_MaxAirPressure;
+            if (i_CurrentAirPressure > i_MaxAirPressure)
+            {
+                throw new ValueOutOfRangeException(null, i_MaxAirPressure, 0);
+            }
+             m_ManufacturerName = i_ManufacturerName;
+             m_CurrentAirPressure = i_CurrentAirPressure;
+             m_MaxAirPressure = i_MaxAirPressure;
+
         }
 
         public void AddAirPressure(float i_AirPressureToAdd)

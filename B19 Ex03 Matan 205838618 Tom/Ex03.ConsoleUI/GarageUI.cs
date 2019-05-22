@@ -236,10 +236,10 @@ Select one of the options by selecting the option's number (1-4), then press ent
             eVehicleTypes vehicleChoise;
 
             getOwnerNameAndPhone(out ownerName, out ownerPhone);
-            vehicleChoise = getVehicleTypeFromUserToInsertGarage(vehicles.Keys);
+            vehicleChoise = getVehicleTypeFromUser(vehicles.Keys);
             parametersTypesFromConstructorArray = takeConstructorParametersTypes(vehicles[vehicleChoise], parametersDescription);
             paramsToBuildVehicle = getParametersFromUserByVehicleType(parametersTypesFromConstructorArray, parametersDescription.ToArray());
-            wheelsArray = getWheelsArray(wheelsNumber[vehicleChoise]);
+            wheelsArray = getWheelsArray(wheelsNumber[vehicleChoise], vehicles[vehicleChoise]);
             garage.AddVehicleToGarage(ownerName, ownerPhone, vehicleChoise, paramsToBuildVehicle, wheelsArray);
         }
 
@@ -252,20 +252,14 @@ Select one of the options by selecting the option's number (1-4), then press ent
             for (int i = 0; i < paramInfo.Length; i++)
             {
                 typesArray[i] = paramInfo[i].ParameterType;
-                i_ParametersDescription.Add(paramInfo[i].Name);
+                i_ParametersDescription.Add(paramInfo[i].Name.Substring(2)); //Substring Remove "i_" from parameter.Name
             }
-            //editStringsDescription(i_ParametersDescription);
 
             return typesArray;
         }
 
-        //private void editStringsDescription(List<string> i_ParametersDescription)
-        //{
-
-        //}
-
         ////Building wheels collection
-        private Wheel[] getWheelsArray(int i_WheelsNumber)
+        private Wheel[] getWheelsArray(int i_WheelsNumber, Type i_VehicleType)
         {
             Wheel[] wheels = new Wheel[i_WheelsNumber];
             string manufacturerName = string.Empty;
@@ -286,7 +280,7 @@ Select one of the options by selecting the option's number (1-4), then press ent
         }
 
         ////The user choose which vehicle he wants to add to the garage, according to the types of vehicles in VehicleFactory
-        private eVehicleTypes getVehicleTypeFromUserToInsertGarage(Dictionary<eVehicleTypes, Type>.KeyCollection i_VehicleTypes)
+        private eVehicleTypes getVehicleTypeFromUser(Dictionary<eVehicleTypes, Type>.KeyCollection i_VehicleTypes)
         {
             string keysValues = string.Empty;
             int vehicleIndex = 1;
@@ -369,8 +363,9 @@ Please enter the name of the vehicle owner, then press enter:");
             {
                 int numberOfEnumValues = Enum.GetValues(i_ParameterType).Length;
                 string toShow = string.Format(
-@"Please select one of the options by selecting the option's number (1-{0}),
-then press enter:", numberOfEnumValues);
+@"Please Choose {0}:
+Select one of the options by selecting the option's number (1-{1}),
+then press enter:", i_ParamDescription, numberOfEnumValues);
                 int indexEnum = 1;
                foreach (Enum valEnum in Enum.GetValues(i_ParameterType))
                {

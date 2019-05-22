@@ -9,19 +9,12 @@ namespace Ex03.GarageLogic
         private MotorcycleProperties m_MotorcycleProperties;
 
         public FuelMotorcycle(string i_ModelName, string i_LicenseNumber, float i_CurrentFuelQuantity, eLicenseTypes i_LicenseType, int i_EngineVolume, Wheel[] i_Wheel)
-            : base(i_ModelName, i_LicenseNumber, eFuelType.Octan95, i_CurrentFuelQuantity, 8f, 2, i_Wheel)
+            : base(i_ModelName, i_LicenseNumber, eFuelType.Octan95, i_CurrentFuelQuantity, 8f, 2, i_Wheel, 33f)
         {
             m_MotorcycleProperties = new MotorcycleProperties(i_LicenseType, i_EngineVolume);
         }
 
-        public static Type[] GetParamsTypesArray()
-        {
-            Type[] types = { typeof(string), typeof(string), typeof(float), typeof(eLicenseTypes), typeof(int), typeof(FuelMotorcycle) };
-
-            return types;
-        }
-
-        public override string ToString() // to delete
+        public override string ToString() 
         {
             string fuelMotorcycleInfo = base.ToString() + Environment.NewLine + m_MotorcycleProperties.ToString();
 
