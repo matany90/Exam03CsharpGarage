@@ -4,10 +4,13 @@ namespace Ex03.GarageLogic
 {
     class ElectricMotorcycle : ElectricVehicle
     {
+        private const float k_MaxBatteryTime = 1.4f;
+        private const int k_NumberOfWheels = 2;
+        private const float k_MaxWheelAirPressure = 33f;
         private MotorcycleProperties m_MotorcycleProperties;
 
         public ElectricMotorcycle(string i_ModelName, string i_LicenseNumber, float i_BatteryTimeLeftByHours, eLicenseTypes i_LicenseType, int i_EngineVolume, Wheel[] i_Wheels) 
-            : base(i_ModelName, i_LicenseNumber, i_BatteryTimeLeftByHours, 1.4f, 2, i_Wheels, 33f)
+            : base(i_ModelName, i_LicenseNumber, i_BatteryTimeLeftByHours, k_MaxBatteryTime, k_NumberOfWheels, i_Wheels, k_MaxWheelAirPressure)
         {
             m_MotorcycleProperties = new MotorcycleProperties(i_LicenseType, i_EngineVolume);
         }

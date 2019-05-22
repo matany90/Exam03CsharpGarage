@@ -21,7 +21,8 @@ namespace Ex03.GarageLogic
 
         public static Vehicle Create(eVehicleTypes i_Identifier, List<object> i_ParamsArray, Wheel[] i_Wheels)
         {
-            Vehicle vehicleToReturn = null;            
+            Vehicle vehicleToReturn = null;        
+            
                 switch (i_Identifier)
                 {
                     case eVehicleTypes.FuelCar:

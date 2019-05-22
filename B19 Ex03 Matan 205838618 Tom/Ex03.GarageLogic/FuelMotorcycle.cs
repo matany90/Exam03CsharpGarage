@@ -6,10 +6,14 @@ namespace Ex03.GarageLogic
 {
     class FuelMotorcycle : FuelVehicle
     {
+        private const eFuelType k_FuelType = eFuelType.Octan95;
+        private const float k_MaxFuelQuantity = 8f;
+        private const int k_NumberOfWheels = 2;
+        private const float k_MaxWheelAirPressure = 33f;
         private MotorcycleProperties m_MotorcycleProperties;
 
         public FuelMotorcycle(string i_ModelName, string i_LicenseNumber, float i_CurrentFuelQuantity, eLicenseTypes i_LicenseType, int i_EngineVolume, Wheel[] i_Wheel)
-            : base(i_ModelName, i_LicenseNumber, eFuelType.Octan95, i_CurrentFuelQuantity, 8f, 2, i_Wheel, 33f)
+            : base(i_ModelName, i_LicenseNumber, k_FuelType, i_CurrentFuelQuantity, k_MaxFuelQuantity, k_NumberOfWheels, i_Wheel, k_MaxWheelAirPressure)
         {
             m_MotorcycleProperties = new MotorcycleProperties(i_LicenseType, i_EngineVolume);
         }

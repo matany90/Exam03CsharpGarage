@@ -6,25 +6,21 @@ namespace Ex03.GarageLogic
 {
     class Truck : FuelVehicle
     {
+        private const eFuelType k_FuelType = eFuelType.Soler;
+        private const float k_MaxFuelQuantity = 110f;
+        private const int k_NumberOfWheels = 12;
+        private const float k_MaxWheelAirPressure = 26f;
         private bool? m_IsTransferHazardousMaterials;
         private int m_TruckLoadSize;
 
         public Truck(string i_ModelName, string i_LicenseNumber, float i_CurrentFuelQuantity, bool i_IsTransferHazardousMaterials, int i_TruckLoadSize, Wheel[] i_Wheels)
-    : base(i_ModelName, i_LicenseNumber, eFuelType.Soler, i_CurrentFuelQuantity, 110f, 12, i_Wheels, 26f)
+    : base(i_ModelName, i_LicenseNumber, k_FuelType, i_CurrentFuelQuantity, k_MaxFuelQuantity, k_NumberOfWheels, i_Wheels, k_MaxWheelAirPressure)
         {
             m_IsTransferHazardousMaterials = i_IsTransferHazardousMaterials;
             m_TruckLoadSize = i_TruckLoadSize;
         }
 
-
-        public static Type[] GetParamsTypesArray()
-        {
-            Type[] types = { typeof(string), typeof(string), typeof(float), typeof(bool), typeof(int), typeof(Truck) };
-
-            return types;
-        }
-
-        public override string ToString() // to delete
+        public override string ToString() 
         {
             string truckInfo = string.Format(
 @"{0}
