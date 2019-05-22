@@ -36,6 +36,11 @@ namespace Ex03.GarageLogic
             get { return m_EnergyLeftByPercentages; }
         }
 
+        public Wheel[] Wheels
+        {
+            get { return m_Wheels; }
+        }
+
         public string ModelName
         {
             get { return m_ModelName; }

@@ -78,7 +78,8 @@ Please select one of the options by selecting the option's number (1-8), then pr
                 case eMenuOptions.ChangeVehicleStatus:
                     handleChangeStatus(i_garage);
                     break;
-                case eMenuOptions.AddAirPressure:
+                case eMenuOptions.FillAirPressureToMax:
+                    handleFillAirPressureToMax(i_garage);
                     break;
                 case eMenuOptions.AddFuelVehicle:
                     handleAddFuel(i_garage);
@@ -94,6 +95,14 @@ Please select one of the options by selecting the option's number (1-8), then pr
             }
         }
 
+        private void handleFillAirPressureToMax(Garage i_Garage)
+        {
+            string licenseNumber = string.Empty;
+
+            Console.WriteLine("Please enter the license number of the vehicle you wish to inflate to maximum:");
+            licenseNumber = Console.ReadLine();
+            i_Garage.FillWheelsToMax(licenseNumber);
+        }
         private void handleShowLicenses(Garage i_Garage)
         {
             eVehicleConditions? vehicleStatusToFilter = null;

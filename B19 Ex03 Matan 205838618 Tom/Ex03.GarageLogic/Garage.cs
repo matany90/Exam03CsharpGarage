@@ -64,23 +64,23 @@ namespace Ex03.GarageLogic
             }
         }
 
-        //public void FillWheelsToMax(string i_LicenseNumber)
-        //{
-        //    bool isVehicleExists = false;
+        public void FillWheelsToMax(string i_LicenseNumber)
+        {
+            bool isVehicleExists = false;
 
-        //    if (m_VehiclesInGarage.ContainsKey(i_LicenseNumber))
-        //    {
-        //        foreach (Wheel wheel in m_VehiclesInGarage[i_LicenseNumber].Vehicle.Wheels)
-        //        {
-        //            wheel.AddAirPressure(wheel.MaxAirPressure - wheel.CurrentAirPressure);
-        //        }
-        //        isVehicleExists = true;
-        //    }
-        //    if (!isVehicleExists)
-        //    {
-        //        throw new Exception("Error, This license number does not exist in the garage!");
-        //    }
-        //}
+            if (m_VehiclesInGarage.ContainsKey(i_LicenseNumber))
+            {
+                foreach (Wheel wheel in m_VehiclesInGarage[i_LicenseNumber].Vehicle.Wheels)
+                {
+                    wheel.AddAirPressure(wheel.MaxAirPressure - wheel.CurrentAirPressure);
+                }
+                isVehicleExists = true;
+            }
+            if (!isVehicleExists)
+            {
+                throw new Exception("Error, This license number does not exist in the garage!");
+            }
+        }
 
         public void AddFuel(string i_LicenseNumber, eFuelType i_FuelType, float i_AmountToFill)
         {            

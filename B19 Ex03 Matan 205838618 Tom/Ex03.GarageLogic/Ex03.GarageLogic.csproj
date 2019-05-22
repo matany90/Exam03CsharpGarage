@@ -51,7 +51,6 @@
     <Compile Include="Garage.cs" />
     <Compile Include="MotorcycleProperties.cs" />
     <Compile Include="Owner.cs" />
-    <Compile Include="TempMain.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Vehicle.cs" />
