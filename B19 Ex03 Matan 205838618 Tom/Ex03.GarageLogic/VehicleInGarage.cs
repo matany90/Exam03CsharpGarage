@@ -1,6 +1,6 @@
 ﻿namespace Ex03.GarageLogic
 {
-    class VehicleInGarage
+    internal class VehicleInGarage
     {
         private Vehicle m_Vehicle;
         private Owner m_Owner;
@@ -35,6 +35,7 @@
             {
                 return m_VehicleState;
             }
+
             set
             {
                 m_VehicleState = value;
@@ -51,7 +52,10 @@ Vehicle Status:
 
 Vehicle Info:
 {2}
-", m_Owner.ToString(), m_VehicleState, m_Vehicle.ToString());
+", 
+m_Owner.ToString(), 
+m_VehicleState, 
+m_Vehicle.ToString());
 
             return toShow;
         }

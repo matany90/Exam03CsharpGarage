@@ -58,6 +58,7 @@ namespace Ex03.GarageLogic
                 m_VehiclesInGarage[i_LicenseNumber].VehicleState = i_State;
                 isVehicleExists = true;
             }
+
             if (!isVehicleExists)
             {
                 throw new Exception("Error, This license number does not exist in the garage!");
@@ -74,8 +75,10 @@ namespace Ex03.GarageLogic
                 {
                     wheel.AddAirPressure(wheel.MaxAirPressure - wheel.CurrentAirPressure);
                 }
+
                 isVehicleExists = true;
             }
+
             if (!isVehicleExists)
             {
                 throw new Exception("Error, This license number does not exist in the garage!");
@@ -119,6 +122,7 @@ namespace Ex03.GarageLogic
                     throw new Exception("Error, You can not charge a non-electric vehicle!");
                 }
             }
+
             if (!isVehicleExists)
             {
                 throw new Exception("Error, This license number does not exist in the garage!");

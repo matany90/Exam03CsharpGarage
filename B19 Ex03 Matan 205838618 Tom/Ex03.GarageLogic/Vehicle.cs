@@ -54,6 +54,7 @@ namespace Ex03.GarageLogic
         {
             get { return m_ModelName; }
         }
+
         public override string ToString()
         {
             string vehicleInfo = string.Format(
@@ -64,7 +65,11 @@ Energy left by %: {2}
 
 Wheels Info:
 Number of wheels: {3} 
-", m_ModelName, m_LicenseNumber, m_EnergyLeftByPercentages, m_NumberOfWheels);
+", 
+m_ModelName, 
+m_LicenseNumber, 
+m_EnergyLeftByPercentages, 
+m_NumberOfWheels);
             int wheelIndex = 1;
             foreach (Wheel wheel in m_Wheels)
             {

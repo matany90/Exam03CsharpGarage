@@ -2,7 +2,7 @@
 
 namespace Ex03.GarageLogic
 {
-    abstract class ElectricVehicle : Vehicle
+    internal abstract class ElectricVehicle : Vehicle
     {
         protected float m_BatteryTimeLeftByHours;
         protected float m_MaxBatteryTime;
@@ -37,7 +37,10 @@ namespace Ex03.GarageLogic
 @"{0}
 Electric Info:
 Current Time Left: {1}
-Max Battery Time: {2}", base.ToString(), m_BatteryTimeLeftByHours, m_MaxBatteryTime);
+Max Battery Time: {2}", 
+base.ToString(), 
+m_BatteryTimeLeftByHours, 
+m_MaxBatteryTime);
 
             return electricVehicleInfo;
         }

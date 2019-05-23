@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    class Truck : FuelVehicle
+    internal class Truck : FuelVehicle
     {
         private const eFuelType k_FuelType = eFuelType.Soler;
         private const float k_MaxFuelQuantity = 110f;
@@ -26,7 +26,10 @@ namespace Ex03.GarageLogic
 @"{0}
 Truck Properties:
 Is Truck Transfer Hazardous Materials? {1}
-Truck load size: {2}", base.ToString(), m_IsTransferHazardousMaterials, m_TruckLoadSize);
+Truck load size: {2}", 
+base.ToString(), 
+m_IsTransferHazardousMaterials, 
+m_TruckLoadSize);
 
             return truckInfo;
         }

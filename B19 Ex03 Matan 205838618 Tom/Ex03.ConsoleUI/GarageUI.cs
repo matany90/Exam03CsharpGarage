@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using Ex03.GarageLogic;
 using System.Collections.Generic;
 using System.Reflection;
+using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
-    class GarageUI
+    public class GarageUI
     {
         public GarageUI()
         {
@@ -20,7 +20,6 @@ namespace Ex03.ConsoleUI
                     garageOperations(userChoise, garage);
                     userChoise = mainMenu();
                 }
-
             }
             catch (FormatException fe)
             {
@@ -38,8 +37,8 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine(ex.Message);
             }
-            
         }
+
         ////Show main menu and take user choise
         private eMenuOptions mainMenu()
         {
@@ -137,6 +136,7 @@ Select one of the options by selecting the option's number (1-3), then press ent
                 checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
                 vehicleStatusToFilter = (eVehicleConditions)Enum.Parse(typeof(eVehicleConditions), choise);
             }
+
             List<string> licenseToShow = i_Garage.ShowLicenseNumbersbool(toFilter, vehicleStatusToFilter);
             int indexLicense = 1;
             foreach (string license in licenseToShow)
@@ -292,11 +292,14 @@ Select one of the options by selecting the option's number (1-4), then press ent
                 keysValues += vehicleIndex + ". " + key + Environment.NewLine;
                 vehicleIndex++;
             }
+
             Console.Write(string.Format(
 @"Vehicle details:
 Please enter the type of vehicle you want to insert into the garage.
 Please select one of the options (1-{0}), then press enter:
-{1}", i_VehicleTypes.Count, keysValues));
+{1}", 
+i_VehicleTypes.Count,
+keysValues));
             string vehicleChoiseString = Console.ReadLine();
             string regexPatternForInputValidation = "^[1-" + i_VehicleTypes.Count + "]{1}$";
             checkInputValidation(ref vehicleChoiseString, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
@@ -357,7 +360,6 @@ Please enter the name of the vehicle owner, then press enter:");
                 requestFromUser += ", and then press enter:";
                 Console.WriteLine(requestFromUser);
                 buildParameterToReturn = int.Parse(Console.ReadLine());
-
             }
             else if (i_ParameterType.IsEnum)
             {
@@ -365,13 +367,16 @@ Please enter the name of the vehicle owner, then press enter:");
                 string toShow = string.Format(
 @"Please Choose {0}:
 Select one of the options by selecting the option's number (1-{1}),
-then press enter:", i_ParamDescription, numberOfEnumValues);
+then press enter:", 
+i_ParamDescription, 
+numberOfEnumValues);
                 int indexEnum = 1;
                foreach (Enum valEnum in Enum.GetValues(i_ParameterType))
                {
                     toShow += Environment.NewLine + indexEnum + ". " + valEnum;
                     indexEnum++;
                }
+
                Console.WriteLine(toShow);
                 string choiseString = Console.ReadLine();
                 regexPatternForInputValidation = "^[1-" + numberOfEnumValues + "]{1}$";
@@ -413,6 +418,5 @@ then press enter:", i_ParamDescription, numberOfEnumValues);
                 }
             }
         }
-
     }
 }

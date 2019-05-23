@@ -8,15 +8,20 @@ namespace Ex03.GarageLogic
     {
         public static Dictionary<eVehicleTypes, Type> Vehicles = new Dictionary<eVehicleTypes, Type>
         {
-    {eVehicleTypes.FuelCar, typeof(FuelCar)},
-    {eVehicleTypes.FuelMotorcycle, typeof(FuelMotorcycle)},
-    {eVehicleTypes.ElectricMotorcycle, typeof(ElectricMotorcycle)},
-    {eVehicleTypes.ElectricCar, typeof(ElectricCar)},
-    {eVehicleTypes.Truck, typeof(Truck)},
+            { eVehicleTypes.FuelCar, typeof(FuelCar) },
+            { eVehicleTypes.FuelMotorcycle, typeof(FuelMotorcycle) },
+            { eVehicleTypes.ElectricMotorcycle, typeof(ElectricMotorcycle) },
+            { eVehicleTypes.ElectricCar, typeof(ElectricCar) },
+            { eVehicleTypes.Truck, typeof(Truck) }
         };
+
         public static Dictionary<eVehicleTypes, int> WheelsNumberPerVehicle = new Dictionary<eVehicleTypes, int>
         {
-     {eVehicleTypes.FuelCar, 4 } , {eVehicleTypes.FuelMotorcycle, 2 } , {eVehicleTypes.ElectricMotorcycle, 2 } , {eVehicleTypes.ElectricCar, 4} , {eVehicleTypes.Truck, 12 }
+            { eVehicleTypes.FuelCar, 4 },
+            { eVehicleTypes.FuelMotorcycle, 2 },
+            { eVehicleTypes.ElectricMotorcycle, 2 },
+            { eVehicleTypes.ElectricCar, 4 },
+            { eVehicleTypes.Truck, 12 }
         };
 
         public static Vehicle Create(eVehicleTypes i_Identifier, List<object> i_ParamsArray, Wheel[] i_Wheels)

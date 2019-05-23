@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    class FuelMotorcycle : FuelVehicle
+    internal class FuelMotorcycle : FuelVehicle
     {
         private const eFuelType k_FuelType = eFuelType.Octan95;
         private const float k_MaxFuelQuantity = 8f;
@@ -29,6 +29,5 @@ namespace Ex03.GarageLogic
         {
             get { return m_MotorcycleProperties; }
         }
-
     }
 }

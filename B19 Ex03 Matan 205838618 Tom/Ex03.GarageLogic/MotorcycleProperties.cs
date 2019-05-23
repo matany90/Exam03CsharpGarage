@@ -2,7 +2,7 @@
 
 namespace Ex03.GarageLogic
 {
-    class MotorcycleProperties
+    internal class MotorcycleProperties
     {
         protected eLicenseTypes m_LicenseType;
         protected int m_EngineVolume;
@@ -30,7 +30,9 @@ namespace Ex03.GarageLogic
             string toShow = string.Format(
 @"Motorcycle Properties:
 Motorcycle License type: {0}
-Motorcycle Engine Volume: {1}", m_LicenseType, m_EngineVolume);
+Motorcycle Engine Volume: {1}", 
+m_LicenseType, 
+m_EngineVolume);
 
             return toShow;
         }

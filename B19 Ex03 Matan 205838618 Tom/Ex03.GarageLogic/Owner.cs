@@ -32,7 +32,9 @@ namespace Ex03.GarageLogic
             string toShow = string.Format(
 @"Owner Name: {0}
 Owner Phone: {1}
-", m_OwnerName, m_OwnerPhone);
+", 
+m_OwnerName, 
+m_OwnerPhone);
 
             return toShow;
         }

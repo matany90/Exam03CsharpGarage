@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    abstract class FuelVehicle : Vehicle
+    internal abstract class FuelVehicle : Vehicle
     {
         protected eFuelType m_FuelType;
         protected float m_CurrentFuelQuantity;
@@ -36,14 +36,17 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException(string.Format(
 @"Invalid arguments.
 {0} is not equal to {1}
-", i_FuelType, m_FuelType));
+", 
+i_FuelType, 
+m_FuelType));
             }
 
             if (i_FuelAmountToAdd + m_CurrentFuelQuantity > m_MaxFuelQuantity)
             {
-                throw new ValueOutOfRangeException(string.Format(
-@"Out of range Error.
-You try to add more fuel than the vehicle's fuel capacity"));
+                //                throw new ValueOutOfRangeException(string.Format(
+                //@"Out of range Error.
+                //You try to add more fuel than the vehicle's fuel capacity"));
+                throw new ValueOutOfRangeException(null, m_MaxFuelQuantity, 0f);
             }
         }
 
@@ -69,10 +72,13 @@ You try to add more fuel than the vehicle's fuel capacity"));
 Fuel Info:
 Fuel type: {1}
 Current Fuel Quantity: {2}
-Max Fuel Quantity: {3}", base.ToString(), m_FuelType, m_CurrentFuelQuantity, m_MaxFuelQuantity);
+Max Fuel Quantity: {3}", 
+base.ToString(), 
+m_FuelType, 
+m_CurrentFuelQuantity, 
+m_MaxFuelQuantity);
 
             return fuelVehicleInfo;
         }
-
     }
 }

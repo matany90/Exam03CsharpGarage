@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    class CarProperties
+    public class CarProperties
     {
         private eCarColor m_CarColor;
         private eDoorsNumber m_DoorsNumber;
@@ -32,7 +32,9 @@ namespace Ex03.GarageLogic
             string toShow = string.Format(
 @"Car Properties:
 Car Color: {0}
-Car Doors Number: {1}", m_CarColor, m_DoorsNumber);
+Car Doors Number: {1}", 
+m_CarColor, 
+m_DoorsNumber);
 
             return toShow;
         }
