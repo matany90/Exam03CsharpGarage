@@ -6,7 +6,7 @@ using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
-    public class GarageUI
+    internal class GarageUI
     {
         public GarageUI()
         {

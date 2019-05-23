@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Ex03.GarageLogic
+﻿namespace Ex03.GarageLogic
 {
-    public class CarProperties
+    internal class CarProperties
     {
         private eCarColor m_CarColor;
         private eDoorsNumber m_DoorsNumber;
