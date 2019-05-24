@@ -26,7 +26,7 @@ namespace Ex03.GarageLogic
             return vehicleAlreadyInGarage;
         }
 
-        public List<string> ShowLicenseNumbersbool(bool i_UseFilter, eVehicleConditions? i_Filter)
+        public List<string> ShowLicenseNumbersBool(bool i_UseFilter, eVehicleConditions? i_Filter)
         {
             List<string> licenseNumbers = new List<string>();
 

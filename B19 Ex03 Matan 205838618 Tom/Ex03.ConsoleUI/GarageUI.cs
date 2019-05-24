@@ -64,7 +64,7 @@ Please select one of the options by selecting the option's number (1-8), then pr
             return (eMenuOptions)Enum.Parse(typeof(eMenuOptions), choise);
         }
 
-        ////
+        ////Invoke method according to the user selection
         private void garageOperations(eMenuOptions i_userChoise, Garage i_garage)
         {
             switch (i_userChoise)
@@ -97,7 +97,7 @@ Please select one of the options by selecting the option's number (1-8), then pr
             }
         }
 
-        ////Handle AddVehicle choise
+        ////Handle FillAirPressureToMax
         private void handleFillAirPressureToMax(Garage i_Garage)
         {
             string licenseNumber = string.Empty;
@@ -110,6 +110,7 @@ Please select one of the options by selecting the option's number (1-8), then pr
         ////Handle ShowLicenses choise
         private void handleShowLicenses(Garage i_Garage)
         {
+            const string userPressYes = "y";
             eVehicleConditions? vehicleStatusToFilter = null;
             bool toFilter;
             bool isCaseSensitive = true;
@@ -121,7 +122,7 @@ Please select one of the options by selecting the option's number (1-8), then pr
 Choose Y/N, and then press enter:");
             string choise = Console.ReadLine().ToLower();
             checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
-            toFilter = choise.Equals("y");
+            toFilter = choise.Equals(userPressYes);
             if (toFilter)
             {
                 Console.WriteLine(
@@ -137,7 +138,7 @@ Select one of the options by selecting the option's number (1-3), then press ent
                 vehicleStatusToFilter = (eVehicleConditions)Enum.Parse(typeof(eVehicleConditions), choise);
             }
 
-            List<string> licenseToShow = i_Garage.ShowLicenseNumbersbool(toFilter, vehicleStatusToFilter);
+            List<string> licenseToShow = i_Garage.ShowLicenseNumbersBool(toFilter, vehicleStatusToFilter);
             int indexLicense = 1;
             foreach (string license in licenseToShow)
             {
@@ -227,7 +228,7 @@ Select one of the options by selecting the option's number (1-4), then press ent
         {
             Dictionary<eVehicleTypes, Type> vehicles = VehicleFactory.Vehicles;
             Dictionary<eVehicleTypes, int> wheelsNumber = VehicleFactory.WheelsNumberPerVehicle;
-            Type[] parametersTypesFromConstructorArray;
+            Type[] parametersTypesFromConstructor;
             List<string> parametersDescription = new List<string>();
             string ownerName = string.Empty;
             string ownerPhone = string.Empty;
@@ -237,25 +238,10 @@ Select one of the options by selecting the option's number (1-4), then press ent
 
             getOwnerNameAndPhone(out ownerName, out ownerPhone);
             vehicleChoise = getVehicleTypeFromUser(vehicles.Keys);
-            parametersTypesFromConstructorArray = takeConstructorParametersTypes(vehicles[vehicleChoise], parametersDescription);
-            paramsToBuildVehicle = getParametersFromUserByVehicleType(parametersTypesFromConstructorArray, parametersDescription.ToArray());
+            parametersTypesFromConstructor = ConstructorReflection.GetConstructorParametersTypes(vehicles[vehicleChoise], parametersDescription);
+            paramsToBuildVehicle = getParametersFromUserByVehicleType(parametersTypesFromConstructor, parametersDescription.ToArray());
             wheelsArray = getWheelsArray(wheelsNumber[vehicleChoise], vehicles[vehicleChoise]);
             garage.AddVehicleToGarage(ownerName, ownerPhone, vehicleChoise, paramsToBuildVehicle, wheelsArray);
-        }
-
-        ////Uses reflaction to get the list of parameters types
-        private Type[] takeConstructorParametersTypes(Type i_VehicleType, List<string> i_ParametersDescription)
-        {
-            ParameterInfo[] paramInfo = i_VehicleType.GetConstructors()[0].GetParameters();
-            Type[] typesArray = new Type[paramInfo.Length];
-
-            for (int i = 0; i < paramInfo.Length; i++)
-            {
-                typesArray[i] = paramInfo[i].ParameterType;
-                i_ParametersDescription.Add(paramInfo[i].Name.Substring(2)); //Substring Remove "i_" from parameter.Name
-            }
-
-            return typesArray;
         }
 
         ////Building wheels collection
@@ -343,6 +329,7 @@ Please enter the name of the vehicle owner, then press enter:");
         ////Uses a reflection to determine which type of parameter to take from user
         private object getSingleParameterFromUserByVehicleType(Type i_ParameterType, string i_ParamDescription)
         {
+            const string userPressYes = "y"; 
             object buildParameterToReturn = new object();
             string errorMessageShowUser = "Invalid choise. please try again, and then press enter:";
             bool isCaseSensitive = false;
@@ -364,7 +351,7 @@ Please enter the name of the vehicle owner, then press enter:");
             else if (i_ParameterType.IsEnum)
             {
                 int numberOfEnumValues = Enum.GetValues(i_ParameterType).Length;
-                string toShow = string.Format(
+                requestFromUser = string.Format(
 @"Please Choose {0}:
 Select one of the options by selecting the option's number (1-{1}),
 then press enter:", 
@@ -373,11 +360,11 @@ numberOfEnumValues);
                 int indexEnum = 1;
                foreach (Enum valEnum in Enum.GetValues(i_ParameterType))
                {
-                    toShow += Environment.NewLine + indexEnum + ". " + valEnum;
+                    requestFromUser += Environment.NewLine + indexEnum + ". " + valEnum;
                     indexEnum++;
                }
 
-               Console.WriteLine(toShow);
+               Console.WriteLine(requestFromUser);
                 string choiseString = Console.ReadLine();
                 regexPatternForInputValidation = "^[1-" + numberOfEnumValues + "]{1}$";
                 checkInputValidation(ref choiseString, regexPatternForInputValidation, errorMessageShowUser, isCaseSensitive);
@@ -396,7 +383,7 @@ numberOfEnumValues);
                 isCaseSensitive = true;
                 regexPatternForInputValidation = "^[y|n]{1}$";
                 checkInputValidation(ref choise, regexPatternForInputValidation, errorMessageShowUser, isCaseSensitive);
-                buildParameterToReturn = choise.Equals("y");
+                buildParameterToReturn = choise.Equals(userPressYes);
             }
 
             return buildParameterToReturn;
