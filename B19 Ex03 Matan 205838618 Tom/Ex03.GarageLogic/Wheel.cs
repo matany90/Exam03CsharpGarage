@@ -22,7 +22,6 @@
         {
             if (m_CurrentAirPressure + i_AirPressureToAdd > m_MaxAirPressure)
             {
-                //throw new ValueOutOfRangeException("Error"); //TODO:: add exepction
                 throw new ValueOutOfRangeException(null, m_MaxAirPressure, 0f);
             }
             else

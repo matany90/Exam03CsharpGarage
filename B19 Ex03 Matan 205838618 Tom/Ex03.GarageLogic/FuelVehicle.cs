@@ -41,9 +41,6 @@ m_FuelType));
 
             if (i_FuelAmountToAdd + m_CurrentFuelQuantity > m_MaxFuelQuantity)
             {
-                //                throw new ValueOutOfRangeException(string.Format(
-                //@"Out of range Error.
-                //You try to add more fuel than the vehicle's fuel capacity"));
                 throw new ValueOutOfRangeException(null, m_MaxFuelQuantity, 0f);
             }
         }

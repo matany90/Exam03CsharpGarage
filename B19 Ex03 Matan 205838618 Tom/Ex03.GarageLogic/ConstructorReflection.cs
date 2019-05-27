@@ -7,7 +7,6 @@ namespace Ex03.GarageLogic
 {
     public static class ConstructorReflection
     {
-
         ////Uses reflection to get the list of parameters types
         public static Type[] GetConstructorParametersTypes(Type i_Type, List<string> i_ParametersDescription)
         {
@@ -17,7 +16,7 @@ namespace Ex03.GarageLogic
             for (int i = 0; i < paramInfo.Length; i++)
             {
                 typesArray[i] = paramInfo[i].ParameterType;
-                i_ParametersDescription.Add(paramInfo[i].Name.Substring(2)); //Substring Remove "i_" from parameter.Name
+                i_ParametersDescription.Add(paramInfo[i].Name.Substring(2)); ////Substring Remove "i_" from parameter.Name
             }
 
             return typesArray;
