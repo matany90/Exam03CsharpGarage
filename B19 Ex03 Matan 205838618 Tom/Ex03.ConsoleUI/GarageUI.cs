@@ -222,7 +222,7 @@ Select one of the options by selecting the option's number (1-4), then press ent
 
         ////Handle Add Veichle to garage
         ////Take all Vehicles types in garage from VehicleFactory class
-        ////Building an object-type collection that will contain all the parameter-types for building the vehicle, according to user's choise
+        ////Building an object-type collection that will contain all the parameter-types for building the vehicle, according to user's choice
         ////Building a wheel-type collection according to vehicle-type user select
         private void handleAddVehicle(Garage garage)
         {
