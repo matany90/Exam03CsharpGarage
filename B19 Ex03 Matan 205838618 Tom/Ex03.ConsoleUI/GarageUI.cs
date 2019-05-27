@@ -14,11 +14,11 @@ namespace Ex03.ConsoleUI
             {
                 Garage garage = new Garage();
                 Console.WriteLine("Welcome to Tom and Matan's garage!" + Environment.NewLine);
-                eMenuOptions userChoise = mainMenu();
-                while (eMenuOptions.Exit != userChoise)
+                eMenuOptions userChoice = mainMenu();
+                while (eMenuOptions.Exit != userChoice)
                 {
-                    garageOperations(userChoise, garage);
-                    userChoise = mainMenu();
+                    garageOperations(userChoice, garage);
+                    userChoice = mainMenu();
                 }
             }
             catch (FormatException fe)
@@ -42,7 +42,7 @@ namespace Ex03.ConsoleUI
         ////Show main menu and take user choise
         private eMenuOptions mainMenu()
         {
-            string choise = string.Empty;
+            string choice = string.Empty;
             bool isCaseSensitive = false;
             string optionalErrorToShow = "Invalid choise. please try again, and then press enter:";
             string regexPatternForInputValidation = "^[1-8]{1}$";
@@ -58,10 +58,10 @@ Please select one of the options by selecting the option's number (1-8), then pr
 6. Charge an electric vehicle
 7. Show vehicle details
 8. Exit");
-            choise = Console.ReadLine();
-            checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
+            choice = Console.ReadLine();
+            checkInputValidation(ref choice, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
 
-            return (eMenuOptions)Enum.Parse(typeof(eMenuOptions), choise);
+            return (eMenuOptions)Enum.Parse(typeof(eMenuOptions), choice);
         }
 
         ////Invoke method according to the user selection
@@ -120,9 +120,9 @@ Please select one of the options by selecting the option's number (1-8), then pr
             Console.WriteLine(
 @"Would you like to filter license numbers by vehicle status?
 Choose Y/N, and then press enter:");
-            string choise = Console.ReadLine().ToLower();
-            checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
-            toFilter = choise.Equals(userPressYes);
+            string choice = Console.ReadLine().ToLower();
+            checkInputValidation(ref choice, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
+            toFilter = choice.Equals(userPressYes);
             if (toFilter)
             {
                 Console.WriteLine(
@@ -131,11 +131,11 @@ Select one of the options by selecting the option's number (1-3), then press ent
 1. InRepair
 2. Repaired
 3. Paid");
-                choise = Console.ReadLine();
+                choice = Console.ReadLine();
                 regexPatternForInputValidation = "^[1-3]{1}$";
                 isCaseSensitive = false;
-                checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
-                vehicleStatusToFilter = (eVehicleConditions)Enum.Parse(typeof(eVehicleConditions), choise);
+                checkInputValidation(ref choice, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
+                vehicleStatusToFilter = (eVehicleConditions)Enum.Parse(typeof(eVehicleConditions), choice);
             }
 
             List<string> licenseToShow = i_Garage.ShowLicenseNumbersBool(toFilter, vehicleStatusToFilter);
@@ -163,10 +163,10 @@ Select one of the options by selecting the option's number (1-3), then press ent
 1. InRepair
 2. Repaired
 3. Paid");
-            string choise = Console.ReadLine();
+            string choice = Console.ReadLine();
             bool isCaseSensitive = false;
-            checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
-            vehicleConditions = (eVehicleConditions)Enum.Parse(typeof(eVehicleConditions), choise);
+            checkInputValidation(ref choice, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
+            vehicleConditions = (eVehicleConditions)Enum.Parse(typeof(eVehicleConditions), choice);
             i_Garage.ChangeVehicleState(licenseNumber, vehicleConditions);
         }
 
@@ -188,10 +188,10 @@ Select one of the options by selecting the option's number (1-4), then press ent
 2. Octan96
 3. Octan95
 4. Soler");
-            string choise = Console.ReadLine();
+            string choice = Console.ReadLine();
             bool isCaseSensitive = false;
-            checkInputValidation(ref choise, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
-            fuelType = (eFuelType)Enum.Parse(typeof(eFuelType), choise);
+            checkInputValidation(ref choice, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
+            fuelType = (eFuelType)Enum.Parse(typeof(eFuelType), choice);
             Console.WriteLine("Please enter the amount of liters of fuel to add, and then press enter:");
             amountToFill = float.Parse(Console.ReadLine());
             i_Garage.AddFuel(licenseNumber, fuelType, amountToFill);
@@ -249,12 +249,16 @@ Select one of the options by selecting the option's number (1-4), then press ent
         {
             Wheel[] wheels = new Wheel[i_WheelsNumber];
             string manufacturerName = string.Empty;
+            string regexPatternForInputValidation = "^[a-zA-Z]+$";
+            string optionalErrorToShow = "Invalid Input. Name can contain letters only.";
+            bool isCaseSensitive = false;
             float currentAirPressure, maxAirPressure;
 
             for (int i = 0; i < i_WheelsNumber; i++)
             {
                 Console.WriteLine("Please enter the manufacturer name for wheel number " + (i + 1));
                 manufacturerName = Console.ReadLine();
+                checkInputValidation(ref manufacturerName, regexPatternForInputValidation, optionalErrorToShow, isCaseSensitive);
                 Console.WriteLine("Please enter current air pressure for wheel number " + (i + 1));
                 currentAirPressure = float.Parse(Console.ReadLine());
                 Console.WriteLine("Please enter maximum air pressure set by the manufacturer for wheel number " + (i + 1));
@@ -390,18 +394,18 @@ numberOfEnumValues);
         }
 
         ////Check input validation by regex expression
-        private void checkInputValidation(ref string i_Choise, string i_PatternRegex, string i_ErrorMessage, bool toLower)
+        private void checkInputValidation(ref string i_Choice, string i_PatternRegex, string i_ErrorMessage, bool toLower)
         {
-            while (!Regex.IsMatch(i_Choise, i_PatternRegex))
+            while (!Regex.IsMatch(i_Choice, i_PatternRegex))
             {
                 Console.WriteLine(i_ErrorMessage);
                 if (toLower)
                 {
-                    i_Choise = Console.ReadLine().ToLower();
+                    i_Choice = Console.ReadLine().ToLower();
                 }
                 else
                 {
-                    i_Choise = Console.ReadLine();
+                    i_Choice = Console.ReadLine();
                 }
             }
         }
